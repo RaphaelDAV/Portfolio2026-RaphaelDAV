@@ -1,26 +1,197 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #0a0a0b;
+  --color-foreground: #ffffff;
+  --color-muted: #a1a1aa;
+  --color-muted-foreground: #71717a;
+  --color-card: #111113;
+  --color-card-hover: #18181b;
+  --color-border: #27272a;
+  --color-border-light: #3f3f46;
+  --color-primary: #8759DE;
+  --color-primary-light: #a78bfa;
+  --color-primary-dark: #6b42c7;
+  --color-secondary: #CA367A;
+  --color-accent: #EF622A;
+  --color-accent-warm: #f59e0b;
+  --color-glow: rgba(135, 89, 222, 0.15);
+  --color-glow-strong: rgba(135, 89, 222, 0.3);
+  --color-surface: #0f0f11;
+  --color-surface-light: #161618;
+  --font-sans: var(--font-montserrat);
+  --font-mono: var(--font-montserrat);
+  
+  /* Gradient réutilisable */
+  --gradient-main: linear-gradient(135deg, #8759DE, #CA367A, #EF622A);
+  --gradient-main-vertical: linear-gradient(180deg, #8759DE, #CA367A, #EF622A);
+  --gradient-main-horizontal: linear-gradient(90deg, #8759DE, #CA367A, #EF622A);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #27272a transparent;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a0a0b;
+  color: #ffffff;
+  font-family: var(--font-montserrat), 'Montserrat', system-ui, -apple-system, sans-serif;
+}
+
+::selection {
+  background-color: rgba(135, 89, 222, 0.3);
+  color: #ffffff;
+}
+
+/* Glow effect utilities */
+.glow-sm {
+  box-shadow: 0 0 15px rgba(135, 89, 222, 0.1);
+}
+.glow-md {
+  box-shadow: 0 0 30px rgba(135, 89, 222, 0.15);
+}
+.glow-lg {
+  box-shadow: 0 0 60px rgba(135, 89, 222, 0.2);
+}
+
+.glow-border {
+  box-shadow: 0 0 15px rgba(135, 89, 222, 0.1),
+    inset 0 0 15px rgba(135, 89, 222, 0.05);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(135deg, #8759DE, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Background gradient */
+.bg-gradient-radial {
+  background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+}
+
+.bg-gradient-main {
+  background: var(--gradient-main);
+}
+
+.bg-gradient-main-vertical {
+  background: var(--gradient-main-vertical);
+}
+
+.bg-gradient-main-horizontal {
+  background: var(--gradient-main-horizontal);
+}
+
+/* Animated border gradient */
+.border-gradient {
+  position: relative;
+  background: var(--gradient-main);
+  background-clip: border-box;
+  border: 2px solid transparent;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Overlay for modals */
+.overlay-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #27272a 20%,
+    #8759DE 50%,
+    #27272a 80%,
+    transparent
+  );
+}
+
+/* Orbit animation */
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(135, 89, 222, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(135, 89, 222, 0.3);
+  }
+}
+
+.animate-orbit {
+  animation: orbit var(--orbit-duration, 20s) linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Infinite scroll animations for characteristics cards */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left var(--scroll-speed, 20s) linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right var(--scroll-speed, 20s) linear infinite;
+}
+
+/* Diagonal arrow animation */
+@keyframes diagonal-float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(4px, -4px);
+  }
+}
+
+.animate-diagonal-float {
+  animation: diagonal-float 2s ease-in-out infinite;
 }
