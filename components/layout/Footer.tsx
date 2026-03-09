@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github, Linkedin, Mail, Heart } from "lucide-react";
+import { Heart, Github, Linkedin, Mail, Instagram, Phone } from "lucide-react";
 import { socials } from "@/data/socials";
 
 const footerLinks = [
@@ -9,15 +9,20 @@ const footerLinks = [
   { label: "Mentions légales", href: "/mentions-legales" },
 ];
 
-const iconMap: Record<string, React.ReactNode> = {
-  Github: <Github size={18} />,
-  Linkedin: <Linkedin size={18} />,
-  Mail: <Mail size={18} />,
+const getLucideIcon = (id: string) => {
+  switch (id) {
+    case "github": return <Github size={24} />;
+    case "linkedin": return <Linkedin size={24} />;
+    case "email": return <Mail size={24} />;
+    case "instagram": return <Instagram size={24} />;
+    case "phone": return <Phone size={24} />;
+    default: return null;
+  }
 };
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="border-t border-border bg-card">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
@@ -55,17 +60,17 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
               Réseaux
             </h4>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               {socials.map((social) => (
                 <a
                   key={social.id}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-lg bg-card border border-border text-muted hover:text-primary hover:border-primary/30 transition-all duration-300"
+                  className="text-muted hover:text-primary transition-all duration-300 hover:scale-110"
                   aria-label={social.label}
                 >
-                  {iconMap[social.icon]}
+                  {getLucideIcon(social.id)}
                 </a>
               ))}
             </div>
@@ -78,9 +83,7 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} Raphaël DAVIOT. Tous droits réservés.
           </p>
-          <p className="flex items-center gap-1">
-            Fait avec <Heart size={14} className="text-secondary" /> et Next.js
-          </p>
+
         </div>
       </div>
     </footer>

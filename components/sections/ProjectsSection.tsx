@@ -11,7 +11,7 @@ export function ProjectsSection() {
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
 
   return (
-    <AnimatedSection id="projects" className="py-24 md:py-32 bg-surface">
+    <AnimatedSection id="projects" className="py-24 md:py-32 bg-background">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         
         {/* Custom Hero Title */}

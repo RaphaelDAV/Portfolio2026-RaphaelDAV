@@ -18,6 +18,7 @@ export interface OrbitSystemProps {
   button?: ReactNode;
   items: OrbitItem[];
   orbitCount?: number;
+  size?: "sm" | "md";
   onItemClick?: (item: OrbitItem) => void;
 }
 
@@ -28,6 +29,7 @@ export function OrbitSystem({
   button,
   items,
   orbitCount = 3,
+  size = "md",
   onItemClick,
 }: OrbitSystemProps) {
   // Distribute the items across the orbits (outer orbits ideally hold more)
@@ -36,9 +38,35 @@ export function OrbitSystem({
   // State to handle pausing on hover
   const [isHovered, setIsHovered] = useState(false);
 
+  const containerSizeClasses = {
+    sm: "min-h-[400px] md:min-h-[500px]",
+    md: "min-h-[600px] md:min-h-[800px]",
+  };
+
+  const orbitSizeClasses = {
+    // Make the base size slightly larger on mobile so it doesn't get squezeed too hard
+    sm: "min-w-[450px] max-w-[550px] md:min-w-[500px] md:max-w-[700px]",
+    md: "min-w-[700px] max-w-[800px] md:min-w-[800px] md:max-w-[1400px]",
+  };
+
+  const titleSizeClasses = {
+    sm: "text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold",
+    md: "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold",
+  };
+
+  const descriptionSizeClasses = {
+    sm: "mt-3 md:mt-4 w-full max-w-[300px] md:max-w-[400px] text-sm leading-relaxed text-muted",
+    md: "mt-4 md:mt-6 sm:mt-8 w-full max-w-[340px] md:max-w-[480px] text-sm sm:text-base leading-relaxed text-muted md:text-lg",
+  };
+
+  const headerSizeClasses = {
+    sm: "mb-2 md:mb-3 text-sm font-bold uppercase text-gradient",
+    md: "mb-4 md:mb-6 text-md font-bold uppercase text-gradient",
+  };
+
   return (
     <div
-      className="relative flex w-full min-h-[600px] md:min-h-[800px] items-center justify-center overflow-hidden"
+      className={`relative flex w-full ${containerSizeClasses[size]} items-center justify-center overflow-hidden`}
     >
 
       {/* Background Glow */}
@@ -49,12 +77,18 @@ export function OrbitSystem({
       <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 md:h-48 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
 
       {/* Orbits Container */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full min-w-[700px] max-w-[800px] md:min-w-[800px] md:max-w-[1200px] aspect-square pointer-events-none flex items-center justify-center">
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full ${orbitSizeClasses[size]} aspect-square pointer-events-none flex items-center justify-center`}>
 
         {orbits.map((orbitItems, idx) => {
-          // Inner orbit = 60% of container (larger to fit text), Outer orbit = 100%
-          const ratio = orbitCount > 1 ? idx / (orbitCount - 1) : 1;
-          const sizePercent = 60 + 50 * ratio;
+          // Calculate spacing based on size
+          const baseRatio = orbitCount > 1 ? idx / (orbitCount - 1) : 1;
+          
+          // Outer orbit is always 100% of container.
+          // Inner orbit minSize determines how far the innermost circle is from the center.
+          // In "sm" we increase to 65% so it doesn't collide with text, in "md" 60%. 
+          const minSize = size === "sm" ? 65 : 60;
+          const range = 100 - minSize;
+          const sizePercent = minSize + range * baseRatio;
 
           const reverse = idx % 2 === 1;
           const duration = 40 + idx * 20; // 40s inner, up to 80s outer
@@ -136,22 +170,22 @@ export function OrbitSystem({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative z-20 flex max-w-[380px] md:max-w-xl lg:max-w-2xl flex-col items-center px-4 text-center pointer-events-auto"
+        className={`relative z-20 flex flex-col items-center px-4 text-center pointer-events-auto ${size === "sm" ? "max-w-[280px]" : "max-w-[380px] md:max-w-xl lg:max-w-2xl"}`}
       >
         {header && (
-          <span className="mb-4 md:mb-6 text-sm font-bold uppercase  text-gradient">
+          <span className={headerSizeClasses[size]}>
             {header}
           </span>
         )}
 
         {title && (
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold">
+          <h2 className={titleSizeClasses[size]}>
             {title}
           </h2>
         )}
 
         {description && (
-          <p className="mt-4 md:mt-6 sm:mt-8 w-full max-w-[340px] md:max-w-[480px] text-sm sm:text-base leading-relaxed text-muted md:text-lg">
+          <p className={descriptionSizeClasses[size]}>
             {description}
           </p>
         )}

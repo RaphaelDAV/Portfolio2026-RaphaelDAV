@@ -49,7 +49,7 @@ export function GlowButton({
   type = "button",
 }: GlowButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-md font-semibold border transition-all duration-300 cursor-pointer",
+    "inline-flex items-center justify-center gap-2 rounded-md font-semibold border transition-colors cursor-pointer",
     variantClasses[variant],
     sizeClasses[size],
     className
@@ -58,7 +58,7 @@ export function GlowButton({
   const motionProps = {
     whileHover: { scale: 1.02 },
     whileTap: { scale: 0.98 },
-    transition: { duration: 0.2 },
+    transition: { type: "spring" as const, stiffness: 400, damping: 20 },
   };
 
   if (href) {

@@ -23,7 +23,7 @@ export function AboutSection() {
 
   return (
     <>
-      <AnimatedSection id="about" className="py-24 md:py-32">
+      <AnimatedSection id="about" className="py-24 md:py-32 bg-background">
         <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header centré */}
           <div className="text-center max-w-3xl mx-auto mb-16">

@@ -2,26 +2,38 @@ export interface SocialLink {
   id: string;
   label: string;
   url: string;
-  icon: string;
+  image: string;
 }
 
 export const socials: SocialLink[] = [
   {
     id: "github",
     label: "GitHub",
-    url: "https://github.com/raphael-daviot",
-    icon: "Github",
+    url: "https://github.com/RaphaelDAV",
+    image: "/assets/socials/github.png",
   },
   {
     id: "linkedin",
     label: "LinkedIn",
-    url: "https://linkedin.com/in/raphael-daviot",
-    icon: "Linkedin",
+    url: "https://www.linkedin.com/in/raphael-daviot/",
+    image: "/assets/socials/linkedin.png",
   },
   {
     id: "email",
     label: "Email",
-    url: "mailto:raphael.daviot@example.com",
-    icon: "Mail",
+    url: "mailto:daviotraphael@gmail.com",
+    image: "/assets/socials/gmail.png",
+  },
+  {
+    id: "phone",
+    label: "Téléphone",
+    url: "tel:+33769817638",
+    image: "/assets/socials/whatsapp.png",
+  },
+  {
+    id: "instagram",
+    label: "Instagram",
+    url: "https://www.instagram.com/raphaeldaviot/",
+    image: "/assets/socials/insta.png",
   },
 ];

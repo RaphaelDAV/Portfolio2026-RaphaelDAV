@@ -1,30 +1,16 @@
 @import "tailwindcss";
 
-@utility pause-animation {
-  &, & * {
-    animation-play-state: paused !important;
-  }
-}
-
 @theme inline {
-  --color-background: #0a0a0b;
+  --color-background: #0F0F0F;
   --color-foreground: #ffffff;
   --color-muted: #a1a1aa;
   --color-muted-foreground: #71717a;
-  --color-card: #111113;
-  --color-card-hover: #18181b;
+  --color-card: #090909;
   --color-border: #27272a;
-  --color-border-light: #3f3f46;
   --color-primary: #8759DE;
-  --color-primary-light: #a78bfa;
-  --color-primary-dark: #6b42c7;
   --color-secondary: #CA367A;
   --color-accent: #EF622A;
   --color-accent-warm: #f59e0b;
-  --color-glow: rgba(135, 89, 222, 0.15);
-  --color-glow-strong: rgba(135, 89, 222, 0.3);
-  --color-surface: #0f0f11;
-  --color-surface-light: #161618;
   --font-sans: var(--font-montserrat);
   --font-mono: var(--font-montserrat);
   
@@ -44,7 +30,7 @@ html {
 }
 
 body {
-  background-color: #0a0a0b;
+  background-color: #0F0F0F;
   color: #ffffff;
   font-family: var(--font-montserrat), 'Montserrat', system-ui, -apple-system, sans-serif;
 }

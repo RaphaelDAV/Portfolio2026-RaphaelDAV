@@ -3,16 +3,18 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { SectionTitle } from "@/components/ui/SectionTitle";
 import { GlowButton } from "@/components/ui/GlowButton";
-import { Github, Linkedin, Mail, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Tag } from "@/components/ui/Tag";
+import { OrbitSystem } from "@/components/ui/Orbit";
+import { Send, CheckCircle, AlertCircle, ArrowUpRight } from "lucide-react";
 import { socials } from "@/data/socials";
 
-const iconMap: Record<string, React.ReactNode> = {
-  Github: <Github size={20} />,
-  Linkedin: <Linkedin size={20} />,
-  Mail: <Mail size={20} />,
-};
+const orbitItems = socials.map((social) => ({
+  id: social.id,
+  src: social.image,
+  label: social.label,
+  url: social.url,
+}));
 
 export function ContactSection() {
   const [formState, setFormState] = useState({
@@ -38,49 +40,46 @@ export function ContactSection() {
     setTimeout(() => setStatus("idle"), 3000);
   };
 
-  return (
-    <AnimatedSection id="contact" className="py-24 md:py-32">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          title="Contact"
-          subtitle="Envie de collaborer ? N'hésitez pas à me contacter"
-        />
+  function handleOpenModal(): void {
+    throw new Error("Function not implemented.");
+  }
 
-        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left side - text + socials */}
+  return (
+    <AnimatedSection id="contact" className="bg-background">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 ">
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-0 lg:divide-x lg:divide-border/50 items-center">
+          {/* Left side - Orbit System with Socials */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="relative flex items-center justify-center w-full min-h-[400px] lg:min-h-[500px] overflow-hidden rounded-3xl lg:rounded-none lg:col-span-3"
           >
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Travaillons ensemble
-            </h3>
-            <p className="text-muted leading-relaxed mb-6">
-              Je suis toujours ouvert aux nouvelles opportunités, que ce soit
-              pour un stage, un projet freelance ou une simple discussion autour
-              du développement. N&apos;hésitez pas à m&apos;écrire, je vous
-              répondrai dans les plus brefs délais.
-            </p>
-            <p className="text-muted leading-relaxed mb-8">
-              Vous pouvez également me retrouver sur mes réseaux sociaux :
-            </p>
-
-            {/* Social links */}
-            <div className="flex gap-3">
-              {socials.map((social) => (
-                <a
-                  key={social.id}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-3 rounded-xl bg-card border border-border text-muted hover:text-primary hover:border-primary/30 transition-all duration-300 hover:glow-sm"
-                >
-                  {iconMap[social.icon]}
-                  <span className="text-sm font-medium">{social.label}</span>
-                </a>
-              ))}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <OrbitSystem
+                orbitCount={2}
+                size="sm"
+                items={orbitItems}
+                onItemClick={(item) => {
+                  if ('url' in item && typeof item.url === 'string') {
+                    window.open(item.url, "_blank");
+                  }
+                }}
+                header={"Formulaire de contact"}
+                title={"Travaillons ensemble!"}
+                description="Je suis à la recherche d’un stage pour Mars 2026 et d’une alternance pour la rentrée de Septembre 2026"
+                button={
+                  <GlowButton
+                    variant="white"
+                    onClick={() => handleOpenModal()}
+                  >
+                    <ArrowUpRight size={18} />
+                    Voir mes réseaux
+                  </GlowButton>
+                }
+              />
             </div>
           </motion.div>
 
@@ -90,52 +89,61 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="w-full mx-auto lg:col-span-2 lg:pl-12 lg:py-12"
           >
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Nom
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  value={formState.name}
-                  onChange={(e) =>
-                    setFormState({ ...formState, name: e.target.value })
-                  }
-                  placeholder="Votre nom"
-                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                />
+            <div className="mb-10 text-center">
+              <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-2">
+                Formulaire de contact
+              </h2>
+              <p className="text-muted text-md">
+                Envie de collaborer ? N'hésitez pas à me contacter via ce formulaire.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2 relative">
+                  <label htmlFor="name" className="w-fit">
+                    <Tag size="sm" className="tracking-wide">
+                      Votre nom
+                    </Tag>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={formState.name}
+                    onChange={(e) =>
+                      setFormState({ ...formState, name: e.target.value })
+                    }
+                    placeholder="Votre nom"
+                    className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2 relative">
+                  <label htmlFor="email" className="w-fit">
+                    <Tag size="sm" className="tracking-wide">
+                      Votre email
+                    </Tag>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formState.email}
+                    onChange={(e) =>
+                      setFormState({ ...formState, email: e.target.value })
+                    }
+                    placeholder="votre@email.com"
+                    className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formState.email}
-                  onChange={(e) =>
-                    setFormState({ ...formState, email: e.target.value })
-                  }
-                  placeholder="votre@email.com"
-                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Message
+              <div className="flex flex-col gap-2 relative">
+                <label htmlFor="message" className="w-fit">
+                  <Tag size="sm" className="tracking-wide">
+                    Votre message
+                  </Tag>
                 </label>
                 <textarea
                   id="message"
@@ -145,28 +153,30 @@ export function ContactSection() {
                     setFormState({ ...formState, message: e.target.value })
                   }
                   placeholder="Votre message..."
-                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
+                  className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none font-medium"
                 />
               </div>
 
               {/* Status messages */}
               {status === "success" && (
-                <div className="flex items-center gap-2 text-sm text-green-400">
-                  <CheckCircle size={16} />
+                <div className="flex items-center gap-2 text-sm font-medium text-green-400 bg-green-400/10 px-4 py-3 rounded-lg border border-green-400/20">
+                  <CheckCircle size={18} />
                   Message envoyé avec succès !
                 </div>
               )}
               {status === "error" && (
-                <div className="flex items-center gap-2 text-sm text-red-400">
-                  <AlertCircle size={16} />
+                <div className="flex items-center gap-2 text-sm font-medium text-red-400 bg-red-400/10 px-4 py-3 rounded-lg border border-red-400/20">
+                  <AlertCircle size={18} />
                   Veuillez remplir tous les champs.
                 </div>
               )}
 
-              <GlowButton type="submit" variant="primary" size="lg" className="w-full">
-                <Send size={18} />
-                Envoyer le message
-              </GlowButton>
+              <div className="flex justify-center pt-4">
+                <GlowButton type="submit" variant="gradient" size="md" className="group flex items-center">
+                  <Send size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <span className="font-bold tracking-wide">Envoyer</span>
+                </GlowButton>
+              </div>
             </form>
           </motion.div>
         </div>
