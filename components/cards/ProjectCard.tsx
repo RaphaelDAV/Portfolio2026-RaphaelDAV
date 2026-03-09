@@ -14,7 +14,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps) {
-  const isNew = project.year >= 2025;
+  const isNew = project.year >= new Date().getFullYear(); 
 
   return (
     <motion.div
@@ -22,7 +22,7 @@ export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps)
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative h-full min-h-[320px] md:min-h-[380px] w-full flex flex-col rounded-2xl bg-card border border-border hover:border-transparent overflow-hidden hover:shadow-xl transition-all duration-500"
+      className="group relative h-full min-h-[250px] md:min-h-[300px] w-full flex flex-col rounded-2xl bg-card border border-border hover:border-transparent overflow-hidden hover:shadow-xl transition-all duration-500"
     >
       {/* Main Link Wrapper */}
       <Link

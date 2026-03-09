@@ -32,7 +32,7 @@ export function SkillsSection() {
 
   return (
     <>
-      <AnimatedSection id="skills" className="relative bg-background overflow-hidden">
+      <AnimatedSection id="skills" className="relative bg-background overflow-hidden py-12">
         <OrbitSystem
           header="Compétences Techniques"
           title={

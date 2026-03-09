@@ -113,9 +113,9 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    #27272a 20%,
-    #8759DE 50%,
-    #27272a 80%,
+    #8759DE 20%,
+    #CA367A 50%,
+    #EF622A 80%,
     transparent
   );
 }

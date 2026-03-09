@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { ProjectPreviewModal } from "@/components/modals/ProjectPreviewModal";
-import { projects } from "@/data/projects";
+import { projects, projectOrder } from "@/data/projects";
 import type { Project } from "@/types/project";
 
 export function ProjectsSection() {
@@ -33,11 +33,11 @@ export function ProjectsSection() {
 
         {/* Projects grid */}
         <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {projects.map((project, index) => (
+          {[...projects].sort((a, b) => projectOrder.indexOf(a.id) - projectOrder.indexOf(b.id)).map((project, index) => (
             <div
               key={project.id}
               className={`h-full ${
-                project.featured ? "sm:col-span-1 lg:col-span-2" : "col-span-1"
+                project.size === "large" ? "sm:col-span-1 lg:col-span-2" : "col-span-1"
               }`}
             >
               <ProjectCard

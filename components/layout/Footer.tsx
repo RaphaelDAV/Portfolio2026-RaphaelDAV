@@ -28,7 +28,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <h3 className="text-lg font-bold text-foreground mb-2">
-              Raphaël <span className="text-primary">DAVIOT</span>
+              Raphaël <span className="text-gradient">DAVIOT</span>
             </h3>
             <p className="text-sm text-muted leading-relaxed">
               Étudiant en BUT Informatique, passionné par le développement web
@@ -67,7 +67,7 @@ export function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted hover:text-primary transition-all duration-300 hover:scale-110"
+                  className="text-muted hover:text-white transition-all duration-300 hover:scale-110"
                   aria-label={social.label}
                 >
                   {getLucideIcon(social.id)}
