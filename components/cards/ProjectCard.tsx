@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Eye } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/Badge";
+import Image from "next/image";
+import { Tag } from "@/components/ui/Tag";
 import type { Project } from "@/types/project";
 
 interface ProjectCardProps {
@@ -13,96 +14,119 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps) {
+  const isNew = project.year >= 2025;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative rounded-2xl bg-card border border-border overflow-hidden hover:border-primary/30 transition-all duration-500 hover:glow-sm"
+      className="group relative h-full min-h-[320px] md:min-h-[380px] w-full flex flex-col rounded-2xl bg-card border border-border hover:border-transparent overflow-hidden hover:shadow-xl transition-all duration-500"
     >
-      {/* Cover image */}
-      <div className="relative h-48 bg-surface overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent z-10" />
-        <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-500" />
-        {/* Placeholder visuel */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-6xl font-bold text-primary/10 group-hover:text-primary/20 transition-colors duration-500">
-            {project.title.charAt(0)}
-          </span>
-        </div>
+      {/* Main Link Wrapper */}
+      <Link
+        href={`/projets/${project.slug}`}
+        onClick={(e) => {
+          if (onPreview) {
+            e.preventDefault();
+            onPreview(project);
+          }
+        }}
+        className="absolute inset-0 z-20 flex flex-col justify-between p-5 md:p-6"
+      >
+        <span className="sr-only">Voir {project.title}</span>
 
-        {/* Preview button */}
-        {onPreview && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onPreview(project);
+        {/* Top row: tags & arrow */}
+        <div className="flex items-start justify-between">
+          {/* Tags */}
+          <div className="flex flex-row flex-wrap items-start gap-2">
+            {isNew && (
+              <Tag size="sm" variant="gradient" className="tracking-wider text-[10px]">
+                NOUVEAU
+              </Tag>
+            )}
+            {project.technologies && project.technologies[0] && (
+              <Tag size="sm" className="bg-black/40 border-white/20">
+                {project.technologies[0]}
+              </Tag>
+            )}
+          </div>
+
+          {/* Arrow */}
+          <motion.div 
+            className="flex items-center justify-center text-white/70 group-hover:text-gradient transition-colors"
+            animate={{ 
+              x: [0, 4, 0], 
+              y: [0, -4, 0] 
             }}
-            className="absolute top-3 right-3 z-20 p-2 rounded-lg bg-card/80 backdrop-blur-sm border border-border text-muted hover:text-primary hover:border-primary/30 opacity-0 group-hover:opacity-100 transition-all duration-300"
-            aria-label="Aperçu rapide"
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
           >
-            <Eye size={16} />
-          </button>
-        )}
-
-        {/* Status badge */}
-        <div className="absolute top-3 left-3 z-20">
-          <Badge
-            variant={project.status === "completed" ? "primary" : "accent"}
-            size="sm"
-          >
-            {project.status === "completed"
-              ? "Terminé"
-              : project.status === "in-progress"
-              ? "En cours"
-              : "Planifié"}
-          </Badge>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-5">
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-            {project.title}
-          </h3>
-          <span className="text-xs text-muted whitespace-nowrap">
-            {project.year}
-          </span>
+            <ArrowUpRight size={28} />
+          </motion.div>
         </div>
 
-        <p className="text-sm text-muted mb-4 line-clamp-2">
-          {project.shortDescription}
-        </p>
+        {/* Bottom row: Icon & Title/Desc */}
+        <div className="flex items-center gap-4 mt-auto">
+          <div className="h-20 w-20 flex-shrink-0 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden relative flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl">
+            {project.icon ? (
+              <Image
+                src={project.icon}
+                alt={`${project.title} logo`}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <span className="text-2xl font-bold text-white drop-shadow-md">
+                {project.title.charAt(0)}
+              </span>
+            )}
+          </div>
 
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.technologies.slice(0, 4).map((tech) => (
-            <Badge key={tech} variant="default" size="sm">
-              {tech}
-            </Badge>
-          ))}
-          {project.technologies.length > 4 && (
-            <Badge variant="default" size="sm">
-              +{project.technologies.length - 4}
-            </Badge>
-          )}
+          <div className="flex flex-col justify-center min-w-0 h-full transition-transform duration-500 group-hover:-translate-y-2">
+            <h3 className="text-lg sm:text-xl uppercase font-bold text-white truncate drop-shadow-md">
+              {project.title}
+            </h3>
+            <p className="text-sm text-white/80 line-clamp-1 drop-shadow-md">
+              {project.shortDescription}
+            </p>
+          </div>
         </div>
+      </Link>
 
-        {/* Link */}
-        <Link
-          href={`/projets/${project.slug}`}
-          className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary-light transition-colors group/link"
-        >
-          Voir le projet
-          <ArrowRight
-            size={14}
-            className="transition-transform group-hover/link:translate-x-1"
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-surface">
+        {project.coverImage ? (
+          <Image
+            src={project.coverImage}
+            alt={project.title}
+            fill
+            className="object-cover brightness-[0.7] transition-all duration-700 group-hover:scale-105"
           />
-        </Link>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-surface group-hover:brightness-50 transition-all duration-700">
+            <span className="text-6xl font-bold text-primary/5">{project.title.charAt(0)}</span>
+          </div>
+        )}
+        
+        {/* Gradient Overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/95 transition-opacity duration-300" />
+        <div className="absolute inset-0 transition-colors duration-500" />
       </div>
+
+      {/* Hover Gradient Border */}
+      <div 
+        className="absolute inset-0 z-30 pointer-events-none rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-[3px] bg-gradient-main" 
+        style={{ 
+          WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", 
+          WebkitMaskComposite: "xor", 
+          maskComposite: "exclude" 
+        }}
+      />
     </motion.div>
   );
 }

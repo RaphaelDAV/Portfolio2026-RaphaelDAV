@@ -1,7 +1,8 @@
 export interface Skill {
   id: string;
   name: string;
-  icon?: string;
+  icon?: string; // Optional emoji/icon string
+  logo?: string; // Path/URL to the skill logo image
   category: SkillCategory;
   level: SkillLevel;
   description: string;

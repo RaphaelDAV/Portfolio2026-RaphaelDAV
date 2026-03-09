@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@utility pause-animation {
+  &, & * {
+    animation-play-state: paused !important;
+  }
+}
+
 @theme inline {
   --color-background: #0a0a0b;
   --color-foreground: #ffffff;

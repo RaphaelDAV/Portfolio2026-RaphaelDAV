@@ -15,6 +15,7 @@ export interface Project {
   featured: boolean;
   technologies: string[];
   coverImage: string;
+  icon?: string;
   gallery: string[];
   githubUrl?: string;
   liveUrl?: string;

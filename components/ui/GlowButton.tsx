@@ -8,7 +8,7 @@ interface GlowButtonProps {
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "secondary" | "outline" | "gradient" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "gradient" | "ghost" | "white";
   size?: "sm" | "md" | "lg";
   className?: string;
   external?: boolean;
@@ -21,6 +21,8 @@ const variantClasses = {
     "bg-primary hover:bg-primary-dark text-white border-primary/50 glow-sm hover:glow-md",
   secondary:
     "bg-secondary/10 hover:bg-secondary/20 text-secondary border-secondary/30",
+  white:
+    "bg-white hover:bg-swhite/20 text-black border-none",
   gradient:
     "bg-gradient-main hover:opacity-90 text-white border-none glow-sm hover:glow-md",
   outline:
@@ -47,7 +49,7 @@ export function GlowButton({
   type = "button",
 }: GlowButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-xl font-semibold border transition-all duration-300 cursor-pointer",
+    "inline-flex items-center justify-center gap-2 rounded-md font-semibold border transition-all duration-300 cursor-pointer",
     variantClasses[variant],
     sizeClasses[size],
     className

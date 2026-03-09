@@ -5,6 +5,7 @@ export const skills: Skill[] = [
   {
     id: "html",
     name: "HTML",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
     category: "frontend",
     level: "avance",
     description:
@@ -15,6 +16,7 @@ export const skills: Skill[] = [
   {
     id: "css",
     name: "CSS",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
     category: "frontend",
     level: "avance",
     description:
@@ -25,6 +27,7 @@ export const skills: Skill[] = [
   {
     id: "javascript",
     name: "JavaScript",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
     category: "frontend",
     level: "avance",
     description:
@@ -35,6 +38,7 @@ export const skills: Skill[] = [
   {
     id: "typescript",
     name: "TypeScript",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
     category: "frontend",
     level: "intermediaire",
     description:
@@ -45,6 +49,7 @@ export const skills: Skill[] = [
   {
     id: "react",
     name: "React",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
     category: "frontend",
     level: "intermediaire",
     description:
@@ -55,6 +60,7 @@ export const skills: Skill[] = [
   {
     id: "nextjs",
     name: "Next.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
     category: "frontend",
     level: "intermediaire",
     description:
@@ -65,6 +71,7 @@ export const skills: Skill[] = [
   {
     id: "tailwindcss",
     name: "Tailwind CSS",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
     category: "frontend",
     level: "avance",
     description:
@@ -77,6 +84,7 @@ export const skills: Skill[] = [
   {
     id: "nodejs",
     name: "Node.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
     category: "backend",
     level: "intermediaire",
     description:
@@ -87,6 +95,7 @@ export const skills: Skill[] = [
   {
     id: "java",
     name: "Java",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
     category: "backend",
     level: "intermediaire",
     description:
@@ -97,6 +106,7 @@ export const skills: Skill[] = [
   {
     id: "php",
     name: "PHP",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg",
     category: "backend",
     level: "intermediaire",
     description:
@@ -107,6 +117,7 @@ export const skills: Skill[] = [
   {
     id: "python",
     name: "Python",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
     category: "backend",
     level: "intermediaire",
     description:
@@ -119,6 +130,7 @@ export const skills: Skill[] = [
   {
     id: "postgresql",
     name: "PostgreSQL",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
     category: "database",
     level: "intermediaire",
     description:
@@ -129,6 +141,7 @@ export const skills: Skill[] = [
   {
     id: "mysql",
     name: "MySQL / MariaDB",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
     category: "database",
     level: "intermediaire",
     description:
@@ -139,6 +152,7 @@ export const skills: Skill[] = [
   {
     id: "mongodb",
     name: "MongoDB",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
     category: "database",
     level: "debutant",
     description:
@@ -151,6 +165,7 @@ export const skills: Skill[] = [
   {
     id: "docker",
     name: "Docker",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
     category: "devops",
     level: "intermediaire",
     description:
@@ -161,6 +176,7 @@ export const skills: Skill[] = [
   {
     id: "linux",
     name: "Linux",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg",
     category: "devops",
     level: "intermediaire",
     description:
@@ -171,6 +187,7 @@ export const skills: Skill[] = [
   {
     id: "git",
     name: "Git",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
     category: "devops",
     level: "avance",
     description:
@@ -181,6 +198,7 @@ export const skills: Skill[] = [
   {
     id: "github",
     name: "GitHub",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
     category: "devops",
     level: "avance",
     description:
@@ -191,6 +209,7 @@ export const skills: Skill[] = [
   {
     id: "cicd",
     name: "CI/CD",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg",
     category: "devops",
     level: "debutant",
     description:
@@ -203,6 +222,7 @@ export const skills: Skill[] = [
   {
     id: "vba",
     name: "VBA",
+    logo: "/assets/skills/vba.png",
     category: "other",
     level: "avance",
     description:
@@ -213,6 +233,7 @@ export const skills: Skill[] = [
   {
     id: "c",
     name: "C",
+    logo: "/assets/skills/c.png",
     category: "other",
     level: "intermediaire",
     description:
@@ -223,6 +244,7 @@ export const skills: Skill[] = [
   {
     id: "api-rest",
     name: "API REST",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
     category: "other",
     level: "intermediaire",
     description:
