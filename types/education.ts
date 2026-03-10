@@ -9,4 +9,5 @@ export interface Education {
   skills: string[];
   subjects: string[];
   context?: string;
+  image?: string;
 }

@@ -2,9 +2,23 @@ import { Education } from "@/types/education";
 
 export const education: Education[] = [
   {
+    id: "ecole-ingenieur",
+    diploma: "École d'Ingénieur",
+    school: "À définir",
+    image: "/assets/education/esiee.png",
+    location: "France",
+    startDate: "Septembre 2026",
+    endDate: "2029",
+    description:
+      "Poursuite d'études en école d'ingénieur après l'obtention du BUT Informatique, afin d'approfondir les compétences techniques et managériales.",
+    skills: [],
+    subjects: [],
+  },
+  {
     id: "but-informatique",
     diploma: "BUT Informatique",
     school: "Université Gustave Eiffel",
+    image: "/assets/education/iut.png",
     location: "Champs-sur-Marne, France",
     startDate: "Septembre 2023",
     endDate: "Juin 2026",
@@ -35,6 +49,7 @@ export const education: Education[] = [
     id: "bac-general",
     diploma: "Baccalauréat Général",
     school: "Lycée",
+    image: "/assets/education/lycee.png",
     location: "Île-de-France, France",
     startDate: "Septembre 2020",
     endDate: "Juin 2023",
