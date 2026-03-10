@@ -61,18 +61,6 @@ export function ProjectHero({ project }: ProjectHeroProps) {
             <Badge variant="accent" size="md">
               {project.year}
             </Badge>
-            <Badge
-              variant={
-                project.status === "completed" ? "primary" : "accent"
-              }
-              size="md"
-            >
-              {project.status === "completed"
-                ? "Terminé"
-                : project.status === "in-progress"
-                ? "En cours"
-                : "Planifié"}
-            </Badge>
           </motion.div>
 
           <motion.h1
