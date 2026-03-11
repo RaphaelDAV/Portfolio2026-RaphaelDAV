@@ -58,7 +58,7 @@ export function HeroSection() {
                                         BUT Informatique
                                     </Tag>
                                 </div>
-                                <p className="text-lg sm:text-xl font-semibold text-gradient whitespace-nowrap">
+                                <p className="text-md sm:text-xl font-semibold text-gradient whitespace-nowrap">
                                     {profile.fullName}
                                 </p>
                             </div>
