@@ -23,21 +23,43 @@ export function ContactSection() {
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
     if (!formState.name || !formState.email || !formState.message) {
       setStatus("error");
+      setErrorMessage("Veuillez remplir tous les champs.");
       return;
     }
 
-    // Simulate success (EmailJS integration ready)
-    setStatus("success");
-    setFormState({ name: "", email: "", message: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
 
-    setTimeout(() => setStatus("idle"), 3000);
+      const data = await res.json();
+
+      if (!res.ok) {
+        setStatus("error");
+        setErrorMessage(data.error || "Erreur lors de l'envoi du message.");
+        console.error("Erreur API:", data);
+        return;
+      }
+
+      setStatus("success");
+      setFormState({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 3000);
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage("Erreur de connexion au serveur.");
+      console.error("Erreur fetch:", error);
+    }
   };
 
   function handleOpenModal(): void {
@@ -162,7 +184,7 @@ export function ContactSection() {
               {status === "error" && (
                 <div className="flex items-center gap-2 text-sm font-medium text-red-400 bg-red-400/10 px-4 py-3 rounded-lg border border-red-400/20">
                   <AlertCircle size={18} />
-                  Veuillez remplir tous les champs.
+                  {errorMessage}
                 </div>
               )}
 
