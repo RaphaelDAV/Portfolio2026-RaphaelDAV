@@ -70,15 +70,10 @@ export function ContactSection() {
                 header={"Formulaire de contact"}
                 title={"Travaillons ensemble!"}
                 description="Je suis à la recherche d’un stage pour Mars 2026 et d’une alternance pour la rentrée de Septembre 2026"
-                button={
-                  <GlowButton
-                    variant="white"
-                    onClick={() => handleOpenModal()}
-                  >
-                    <ArrowUpRight size={18} />
-                    Voir mes réseaux
-                  </GlowButton>
-                }
+                buttonText="Voir mes réseaux"
+                buttonIcon={<ArrowUpRight size={18} />}
+                buttonOnClick={() => handleOpenModal()}
+                buttonVariant="white"
               />
             </div>
           </motion.div>

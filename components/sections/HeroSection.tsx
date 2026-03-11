@@ -22,11 +22,11 @@ export function HeroSection() {
             {/* Grid pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(135,89,222,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(135,89,222,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
-            <div className="relative z-10 max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 w-full min-h-screen flex items-center pb-20">
-                {/* Contenu central - Portfolio (centré verticalement) */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+            <div className="relative z-10 max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 w-full min-h-screen flex flex-col justify-center lg:justify-start py-20 lg:py-0">
+                {/* Contenu central - Portfolio */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
                     {/* Text content */}
-                    <div className="order-2 lg:order-1 flex justify-center lg:justify-start">
+                    <div className="order-2 lg:order-1 flex justify-center">
                         {/* Bloc relié */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
@@ -126,60 +126,58 @@ export function HeroSection() {
                         </div>
                     </motion.div>
                 </div>
-            </div>
 
-            {/* Contenu en bas - positionné en absolu */}
-            <div className="absolute bottom-0 left-0 right-0 z-10 pb-30">
-                <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col items-center gap-2">
-                        
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.6 }}
-                            className="flex justify-center"
-                        >
-                            <a
-                                href={profile.cvUrl}
-                                download
-                                className="group inline-flex items-center gap-4 pl-10 rounded-full bg-white/5 backdrop-blur-md transition-all duration-300"
+                {/* Contenu en bas - dans le flow sur petit écran, positionné aux 3/4 sur grand écran */}
+                <div className="mt-12 lg:mt-0 lg:absolute lg:top-[75vh] lg:left-1/2 lg:-translate-x-1/2 z-10 w-full max-w-[1500px]">
+                    <div className="px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-col items-center gap-2">
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.6 }}
+                                className="flex justify-center"
                             >
-                                <span className="text-white uppercase font-bold text-sm">
-                                    Télécharger mon CV
-                                </span>
-                                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <Download size={20} className="text-background" />
-                                </div>
-                            </a>
-                        </motion.div>
+                                <a
+                                    href={profile.cvUrl}
+                                    download
+                                    className="group inline-flex items-center gap-4 pl-10 rounded-full bg-white/5 backdrop-blur-md transition-all duration-300"
+                                >
+                                    <span className="text-white uppercase font-bold text-sm">
+                                        Télécharger mon CV
+                                    </span>
+                                    <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                        <Download size={20} className="text-background" />
+                                    </div>
+                                </a>
+                            </motion.div>
 
-                        <motion.p
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.55 }}
-                            className="text-center text-sm sm:text-base text-white max-w-sm px-4"
-                        >
-                            Je suis à la <span className="text-gradient font-semibold">recherche d'une alternance</span> à partir <span className="text-gradient font-semibold"> de Septembre 2026</span>
-                        </motion.p>
+                            <motion.p
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.55 }}
+                                className="text-center text-sm sm:text-base text-white max-w-sm px-4"
+                            >
+                                Je suis à la <span className="text-gradient font-semibold">recherche d'une alternance</span> à partir <span className="text-gradient font-semibold"> de Septembre 2026</span>
+                            </motion.p>
+
+                            {/* Scroll indicator */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.2 }}
+                                className="hidden lg:flex flex-col items-center text-muted mt-8"
+                            >
+                                <span className="text-xs uppercase tracking-wider">Défiler</span>
+                                <motion.div
+                                    animate={{ y: [0, 8, 0] }}
+                                    transition={{ duration: 1.5, repeat: Infinity }}
+                                >
+                                    <ArrowDown size={16} />
+                                </motion.div>
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
-
-                {/* Scroll indicator */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2 }}
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center  text-muted"
-                >
-                    <span className="text-xs uppercase tracking-wider">Défiler</span>
-                    <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                        <ArrowDown size={16} />
-                    </motion.div>
-                </motion.div>
             </div>
         </section>
     );

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { GlowButton } from "@/components/ui/GlowButton";
 import { AllSkillsModal } from "@/components/modals/AllSkillsModal";
 import { OrbitSystem } from "@/components/ui/Orbit";
 import { ArrowUpRight } from "lucide-react";
@@ -43,17 +42,13 @@ export function SkillsSection() {
             </>
           }
           description="Des technologies acquises en BUT Informatique et appliquées à travers des projets réels, du développement au déploiement."
-          button={
-            <GlowButton
-              variant="white"
-              onClick={() => handleOpenModal()}
-            >
-              <ArrowUpRight size={18} />
-              Voir mes compétences
-            </GlowButton>
-          }
+          buttonText="Voir mes compétences"
+          buttonIcon={<ArrowUpRight size={18} />}
+          buttonOnClick={() => handleOpenModal()}
+          buttonVariant="white"
           items={orbitSkills}
           orbitCount={3}
+          size="md"
           onItemClick={(item) => handleOpenModal(item.id)}
         />
       </AnimatedSection>

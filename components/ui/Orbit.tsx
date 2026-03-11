@@ -3,6 +3,7 @@
 import { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { GlowButton } from "@/components/ui/GlowButton";
 
 export interface OrbitItem {
   id: string;
@@ -15,7 +16,10 @@ export interface OrbitSystemProps {
   header?: ReactNode;
   title?: ReactNode;
   description?: ReactNode;
-  button?: ReactNode;
+  buttonText?: string;
+  buttonIcon?: ReactNode;
+  buttonOnClick?: () => void;
+  buttonVariant?: "primary" | "secondary" | "outline" | "gradient" | "ghost" | "white";
   items: OrbitItem[];
   orbitCount?: number;
   size?: "sm" | "md";
@@ -26,7 +30,10 @@ export function OrbitSystem({
   header,
   title,
   description,
-  button,
+  buttonText,
+  buttonIcon,
+  buttonOnClick,
+  buttonVariant = "white",
   items,
   orbitCount = 3,
   size = "md",
@@ -55,13 +62,13 @@ export function OrbitSystem({
   };
 
   const descriptionSizeClasses = {
-    sm: "mt-3 md:mt-4 w-full max-w-[300px] md:max-w-[400px] text-sm leading-relaxed text-muted",
-    md: "mt-4 md:mt-6 sm:mt-8 w-full max-w-[340px] md:max-w-[480px] text-sm sm:text-base leading-relaxed text-muted md:text-lg",
+    sm: "mt-3 md:mt-4 w-full max-w-[300px] md:max-w-[400px] text-sm md:text-base leading-relaxed text-muted",
+    md: "mt-4 lg:mt-6 w-full max-w-[340px] md:max-w-[480px] text-sm sm:text-base leading-relaxed text-muted md:text-lg lg:text-xl",
   };
 
   const headerSizeClasses = {
-    sm: "mb-2 md:mb-3 text-sm font-bold uppercase text-gradient",
-    md: "mb-4 md:mb-6 text-md font-bold uppercase text-gradient",
+    sm: "mb-2 md:mb-3 text-xs md:text-sm font-bold uppercase text-gradient",
+    md: "mb-4 md:mb-6 text-sm md:text-base font-bold uppercase text-gradient",
   };
 
   return (
@@ -190,9 +197,16 @@ export function OrbitSystem({
           </p>
         )}
 
-        {button && (
-          <div className="mt-8 md:mt-10">
-            {button}
+        {buttonText && (
+          <div className="mt-6 lg:mt-8">
+            <GlowButton
+              variant={buttonVariant}
+              responsive={true}
+              onClick={buttonOnClick}
+            >
+              {buttonIcon}
+              {buttonText}
+            </GlowButton>
           </div>
         )}
       </motion.div>

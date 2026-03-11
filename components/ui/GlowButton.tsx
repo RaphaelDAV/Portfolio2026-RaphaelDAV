@@ -10,6 +10,7 @@ interface GlowButtonProps {
   onClick?: () => void;
   variant?: "primary" | "secondary" | "outline" | "gradient" | "ghost" | "white";
   size?: "sm" | "md" | "lg";
+  responsive?: boolean;
   className?: string;
   external?: boolean;
   download?: boolean;
@@ -37,21 +38,24 @@ const sizeClasses = {
   lg: "px-8 py-2 text-lg",
 };
 
+const responsiveSizeClasses = "px-4 py-1 text-sm md:px-6 md:py-1.5 md:text-base lg:px-8 lg:py-2 lg:text-lg";
+
 export function GlowButton({
   children,
   href,
   onClick,
   variant = "primary",
   size = "md",
+  responsive = false,
   className,
   external,
   download,
   type = "button",
 }: GlowButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-md font-semibold border transition-colors cursor-pointer",
+    "inline-flex items-center justify-center gap-2 rounded-md font-semibold border transition-colors cursor-pointer whitespace-nowrap",
     variantClasses[variant],
-    sizeClasses[size],
+    responsive ? responsiveSizeClasses : sizeClasses[size],
     className
   );
 
