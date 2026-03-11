@@ -11,9 +11,10 @@ interface ProjectCardProps {
   project: Project;
   onPreview?: (project: Project) => void;
   index?: number;
+  compact?: boolean;
 }
 
-export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps) {
+export function ProjectCard({ project, onPreview, index = 0, compact = false }: ProjectCardProps) {
   const isNew = project.year >= new Date().getFullYear(); 
 
   return (
@@ -22,7 +23,9 @@ export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps)
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative h-full min-h-[250px] md:min-h-[300px] w-full flex flex-col rounded-2xl bg-card border border-border hover:border-transparent overflow-hidden hover:shadow-xl transition-all duration-500"
+      className={`group relative h-full w-full flex flex-col rounded-2xl bg-card border border-border hover:border-transparent overflow-hidden hover:shadow-xl transition-all duration-500 ${
+        compact ? "min-h-[140px] sm:min-h-[160px]" : "min-h-[250px] md:min-h-[300px]"
+      }`}
     >
       {/* Main Link Wrapper */}
       <Link
@@ -33,7 +36,9 @@ export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps)
             onPreview(project);
           }
         }}
-        className="absolute inset-0 z-20 flex flex-col justify-between p-5 md:p-6"
+        className={`absolute inset-0 z-20 flex flex-col justify-between ${
+          compact ? "p-3 sm:p-4" : "p-5 md:p-6"
+        }`}
       >
         <span className="sr-only">Voir {project.title}</span>
 
@@ -41,12 +46,12 @@ export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps)
         <div className="flex items-start justify-between">
           {/* Tags */}
           <div className="flex flex-row flex-wrap items-start gap-2">
-            {isNew && (
+            {isNew && !compact && (
               <Tag size="sm" variant="gradient" className="tracking-wider text-[10px]">
                 NOUVEAU
               </Tag>
             )}
-            {project.technologies && project.technologies[0] && (
+            {!compact && project.technologies && project.technologies[0] && (
               <Tag size="sm" className="bg-black/40 border-white/20">
                 {project.technologies[0]}
               </Tag>
@@ -66,13 +71,17 @@ export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps)
               ease: "easeInOut"
             }}
           >
-            <ArrowUpRight size={28} />
+            <ArrowUpRight size={compact ? 20 : 28} />
           </motion.div>
         </div>
 
         {/* Bottom row: Icon & Title/Desc */}
-        <div className="flex items-center gap-4 mt-auto">
-          <div className="h-20 w-20 flex-shrink-0 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden relative flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl">
+        <div className={`flex items-center mt-auto ${
+          compact ? "gap-2 sm:gap-3" : "gap-4"
+        }`}>
+          <div className={`flex-shrink-0 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden relative flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl ${
+            compact ? "h-10 w-10 sm:h-12 sm:w-12 rounded-lg" : "h-20 w-20"
+          }`}>
             {project.icon ? (
               <Image
                 src={project.icon}
@@ -81,17 +90,23 @@ export function ProjectCard({ project, onPreview, index = 0 }: ProjectCardProps)
                 className="object-cover"
               />
             ) : (
-              <span className="text-2xl font-bold text-white drop-shadow-md">
+              <span className={`font-bold text-white drop-shadow-md ${
+                compact ? "text-base sm:text-lg" : "text-2xl"
+              }`}>
                 {project.title.charAt(0)}
               </span>
             )}
           </div>
 
           <div className="flex flex-col justify-center min-w-0 h-full transition-transform duration-500 group-hover:-translate-y-2">
-            <h3 className="text-lg sm:text-xl uppercase font-bold text-white truncate drop-shadow-md">
+            <h3 className={`uppercase font-bold text-white truncate drop-shadow-md ${
+              compact ? "text-xs sm:text-sm" : "text-lg sm:text-xl"
+            }`}>
               {project.title}
             </h3>
-            <p className="text-sm text-white/80 line-clamp-1 drop-shadow-md">
+            <p className={`text-white/80 line-clamp-1 drop-shadow-md ${
+              compact ? "text-[10px] sm:text-xs" : "text-sm"
+            }`}>
               {project.shortDescription}
             </p>
           </div>

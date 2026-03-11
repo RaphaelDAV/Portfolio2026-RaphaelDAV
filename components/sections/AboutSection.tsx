@@ -39,7 +39,7 @@ export function AboutSection() {
             
             {/* 2 CTAs */}
             <div className="flex flex-wrap gap-4 justify-center">
-              <GlowButton href="/#projets" variant="gradient" size="md">
+              <GlowButton href="/#projects" variant="gradient" size="md">
                 <FolderOpen size={18} />
                 Voir mes projets
               </GlowButton>
