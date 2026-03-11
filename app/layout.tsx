@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className="scroll-smooth">
       <body
-        className={`${montserrat.variable} antialiased bg-background text-foreground`}
+        className={`${montserrat.variable} antialiased bg-background text-foreground overflow-x-hidden`}
       >
         <Navbar />
         <main className="min-h-screen">{children}</main>

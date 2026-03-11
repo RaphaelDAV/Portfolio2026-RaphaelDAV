@@ -45,7 +45,7 @@ export function ContactSection() {
   }
 
   return (
-    <AnimatedSection id="contact" className="bg-background py-24 ">
+    <AnimatedSection id="contact" className="bg-background py-24 overflow-x-hidden">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 ">
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-0 lg:divide-x lg:divide-border/50 items-center">
