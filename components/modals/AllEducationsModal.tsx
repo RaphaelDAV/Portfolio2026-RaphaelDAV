@@ -2,128 +2,13 @@
 
 import { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
-import Image from "next/image";
-import { Tag } from "@/components/ui/Tag";
-import { GlareHover } from "@/components/ui/GlareHover";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { FlipCard, type FlipCardData } from "@/components/cards/FlipCard";
 import { education as allEducation } from "@/data/education";
 
 const levelLabels = ["BAC", "BAC+3", "BAC+5"];
 const ordered = [...allEducation].reverse();
 type EduItem = (typeof ordered)[0];
-
-function FlipCard({ edu, index, isUpcoming, fits }: { edu: EduItem; index: number; isUpcoming: boolean; fits: boolean }) {
-  const [flipped, setFlipped] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.45, delay: 0.15 + index * 0.12, ease: "easeOut" }}
-      className={`flex-shrink-0 cursor-pointer ${fits ? "flex-1 max-w-[340px]" : "w-full max-w-[400px]"}`}
-      onClick={() => setFlipped((f) => !f)}
-    >
-      <GlareHover
-        borderRadius="1rem"
-        glareOpacity={0.13}
-        glareSize={55}
-        tiltMaxAngle={flipped ? 0 : 10}
-        transitionDuration={400}
-      >
-        {/* Flip container — CSS transition, preserve-3d pour les faces */}
-        <div
-          style={{
-            position: "relative",
-            transformStyle: "preserve-3d",
-            transition: "transform 550ms cubic-bezier(0.4, 0, 0.2, 1)",
-            transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
-          }}
-        >
-        {/* FACE AVANT */}
-        <div
-          style={{ backfaceVisibility: "hidden" }}
-          className="w-full flex flex-col rounded-2xl overflow-hidden bg-white/5 border border-white/10 backdrop-blur-md transition-shadow hover:shadow-[0_0_30px_rgba(255,255,255,0.06)]"
-        >
-          <div className="relative w-full aspect-square bg-white/5 border-b border-white/10 overflow-hidden">
-            {edu.image && (
-              <Image
-                src={edu.image}
-                alt={edu.diploma}
-                fill
-                className="object-cover opacity-60"
-                sizes="(max-width: 768px) 400px, 340px"
-              />
-            )}
-            {isUpcoming && (
-              <span className="absolute top-3 right-3 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
-                À venir
-              </span>
-            )}
-            <div className="absolute bottom-3 left-3">
-              <Tag size="sm">{edu.school}</Tag>
-            </div>
-          </div>
-          <div className="p-5 space-y-3">
-            <span className="text-[11px] font-semibold tracking-widest uppercase text-primary">
-              {edu.startDate} — {edu.endDate}
-            </span>
-            <h3 className="text-base font-bold text-white leading-snug">{edu.diploma}</h3>
-            <p className="text-xs text-white/40 leading-relaxed line-clamp-3">{edu.description}</p>
-            <div className="pt-1 flex items-center justify-center gap-1.5 text-white/25 text-[10px] font-medium tracking-wide">
-              Cliquer pour voir plus
-            </div>
-          </div>
-        </div>
-
-        {/* FACE ARRIÈRE */}
-        <div
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-          className="absolute inset-0 flex flex-col rounded-2xl overflow-auto bg-[rgba(255,255,255,0.07)] border border-primary/25 backdrop-blur-md p-5 gap-4"
-        >
-          <div className="flex items-start justify-between gap-2">
-            <div>
-              <span className="text-[11px] font-semibold tracking-widest uppercase text-primary">
-                {edu.startDate} — {edu.endDate}
-              </span>
-              <h3 className="mt-1 text-base font-bold text-white leading-snug">{edu.diploma}</h3>
-            </div>
-            <div className="flex-shrink-0 flex items-center gap-1 mt-1 text-white/30 text-[10px]">
-              <RotateCcw size={10} />
-              retourner
-            </div>
-          </div>
-          <p className="text-xs text-white/50 leading-relaxed">{edu.description}</p>
-          {edu.skills.length > 0 && (
-            <div className="space-y-2">
-              <p className="text-[10px] uppercase tracking-widest text-white/30">Compétences</p>
-              <div className="flex flex-wrap gap-1.5">
-                {edu.skills.slice(0, 5).map((s) => (
-                  <span key={s} className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/60 border border-white/10">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          {edu.subjects.length > 0 && (
-            <div className="space-y-2">
-              <p className="text-[10px] uppercase tracking-widest text-white/30">Matières</p>
-              <div className="flex flex-wrap gap-1.5">
-                {edu.subjects.slice(0, 5).map((s) => (
-                  <span key={s} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary/80 border border-primary/20">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>{/* end back face */}
-        </div>{/* end flip container */}
-      </GlareHover>
-    </motion.div>
-  );
-}
 
 interface AllEducationsModalProps {
   isOpen: boolean;
@@ -220,6 +105,18 @@ export function AllEducationsModal({ isOpen, onClose }: AllEducationsModalProps)
               >
                 {ordered.map((edu, index) => {
                   const isUpcoming = parseInt(edu.startDate.split(" ")[1] ?? "0") > new Date().getFullYear();
+                  const cardData: FlipCardData = {
+                    id: edu.id,
+                    image: edu.image,
+                    imageAlt: edu.diploma,
+                    bottomTag: edu.school,
+                    dateRange: `${edu.startDate} — ${edu.endDate}`,
+                    title: edu.diploma,
+                    description: edu.description,
+                    isUpcoming,
+                    skills: edu.skills,
+                    subjects: edu.subjects,
+                  };
                   return (
                     <div
                       key={edu.id}
@@ -233,7 +130,7 @@ export function AllEducationsModal({ isOpen, onClose }: AllEducationsModalProps)
                       >
                         {levelLabels[index]}
                       </motion.span>
-                      <FlipCard edu={edu} index={index} isUpcoming={isUpcoming} fits={fits} />
+                      <FlipCard data={cardData} index={index} fits={fits} />
                     </div>
                   );
                 })}

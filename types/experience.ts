@@ -9,5 +9,6 @@ export interface Experience {
   missions: string[];
   technologies: string[];
   results: string[];
-  type: "stage" | "alternance" | "freelance" | "projet" | "emploi";
+  type: "stage" | "alternance" | "freelance" | "projet" | "emploi" | "sport";
+  image?: string;
 }
