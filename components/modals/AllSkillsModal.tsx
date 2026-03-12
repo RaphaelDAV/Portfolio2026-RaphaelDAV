@@ -125,14 +125,14 @@ export function AllSkillsModal({ isOpen, onClose, initialSkillId }: AllSkillsMod
             className="relative z-10 w-full max-w-6xl max-h-[90vh] mx-4 bg-background rounded-2xl border border-border shadow-2xl overflow-hidden flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-border">
-              <h2 className="text-2xl font-bold text-foreground">Toutes mes compétences</h2>
+            <div className="flex items-center justify-between p-4 sm:p-5 md:p-6 border-b border-border">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground">Toutes mes compétences</h2>
               <button
                 onClick={handleClose}
                 className="p-2 rounded-full hover:bg-white/10 transition-colors"
                 aria-label="Fermer"
               >
-                <X size={24} />
+                <X size={20} className="sm:w-6 sm:h-6" />
               </button>
             </div>
 

@@ -18,7 +18,7 @@ export const projects: Project[] = [
     title: "SNChesS",
     shortDescription: "Jeu d'echecs complet developpe en C.",
     fullDescription:
-      "SNChesS est un jeu d'echecs entierement developpe en C. Il inclut une interface en ligne de commande, la verification de tous les deplacements legaux, la gestion des parties et un systeme de sauvegarde.",
+      "Le projet SCN'Hess représente une solution innovante pour la réservation de billets de train dans le contexte de l'ouverture à la concurrence du marché ferroviaire. Notre objectif était de créer une plateforme intuitive et performante permettant aux utilisateurs de réserver facilement des trajets en TGV.\n\nL'un des principaux défis rencontrés était la gestion complexe du système de réservation, incluant la disponibilité des places, les options personnalisées et le calendrier des prix variables. La mise en place d'une architecture robuste basée sur une base de données relationnelle a été cruciale pour assurer la fiabilité du système.\n\nLa gestion des options personnalisées (place tranquille, prise électrique, bagages supplémentaires) et l'implémentation du système de tarification dynamique ont également représenté des défis techniques importants. L'interface utilisateur a été conçue pour offrir une expérience fluide et intuitive, en mettant l'accent sur la visualisation claire du panier d'achat et la simplicité du processus de paiement.\n\nMalgré ces défis techniques, une approche méthodique et centrée sur l'utilisateur nous a permis de développer une application complète répondant aux exigences spécifiées par le Product Owner, offrant ainsi une alternative compétitive aux plateformes existantes.",
     year: 2024,
     category: "Application Bureau",
     size: "large",

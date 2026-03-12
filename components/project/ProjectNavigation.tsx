@@ -16,7 +16,7 @@ export function ProjectNavigation({
 }: ProjectNavigationProps) {
   return (
     <section className="py-12 border-t border-border">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Previous */}
           {previous ? (

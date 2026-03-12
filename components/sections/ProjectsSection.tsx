@@ -1,21 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { ProjectCard } from "@/components/cards/ProjectCard";
-import { ProjectPreviewModal } from "@/components/modals/ProjectPreviewModal";
 import { projects, projectOrder } from "@/data/projects";
-import type { Project } from "@/types/project";
 
 export function ProjectsSection() {
-  const [previewProject, setPreviewProject] = useState<Project | null>(null);
-
   return (
     <AnimatedSection id="projects" className="py-24 md:py-32 bg-background overflow-x-hidden">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         
         {/* Custom Hero Title */}
-        <div className="relative mb-16 md:mb-24 flex justify-center w-full mt-4 md:mt-8 overflow-hidden">
+        <div className="relative mb-16 md:mb-24 flex justify-center w-full mt-4 md:mt-8">
           <div className="relative flex items-center justify-center">
             {/* Outline text (behind) */}
             <h2 className="text-[3rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none font-black uppercase tracking-normal text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.8)] md:[-webkit-text-stroke:3px_rgba(255,255,255,0.8)] select-none drop-shadow-md">
@@ -42,19 +37,11 @@ export function ProjectsSection() {
             >
               <ProjectCard
                 project={project}
-                onPreview={setPreviewProject}
                 index={index}
               />
             </div>
           ))}
         </div>
-
-        {/* Preview modal */}
-        <ProjectPreviewModal
-          project={previewProject}
-          isOpen={!!previewProject}
-          onClose={() => setPreviewProject(null)}
-        />
       </div>
     </AnimatedSection>
   );
