@@ -101,6 +101,16 @@ body {
   mask-composite: exclude;
 }
 
+/* Focus border gradient for form fields */
+.focus-gradient-border:focus {
+  outline: none;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-card), var(--color-card)) padding-box,
+    var(--gradient-main) border-box;
+  box-shadow: 0 0 0 1px rgba(135, 89, 222, 0.2);
+}
+
 /* Overlay for modals */
 .overlay-blur {
   backdrop-filter: blur(8px);

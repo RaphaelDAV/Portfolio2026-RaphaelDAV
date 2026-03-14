@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { Tag } from "@/components/ui/Tag";
 import { OrbitSystem } from "@/components/ui/Orbit";
-import { Send, CheckCircle, AlertCircle, ArrowUpRight } from "lucide-react";
+import { Modal } from "@/components/ui/Modal";
+import { Send, CheckCircle, AlertCircle, ArrowUpRight, ExternalLink } from "lucide-react";
 import { socials } from "@/data/socials";
 
-const orbitItems = socials.map((social) => ({
-  id: social.id,
+const orbitItems = [...socials, ...socials].map((social, index) => ({
+  id: `${social.id}-${index}`,
   src: social.image,
   label: social.label,
   url: social.url,
@@ -24,6 +26,7 @@ export function ContactSection() {
   });
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSocialsModalOpen, setIsSocialsModalOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,7 +66,7 @@ export function ContactSection() {
   };
 
   function handleOpenModal(): void {
-    throw new Error("Function not implemented.");
+    setIsSocialsModalOpen(true);
   }
 
   return (
@@ -133,7 +136,7 @@ export function ContactSection() {
                       setFormState({ ...formState, name: e.target.value })
                     }
                     placeholder="Votre nom"
-                    className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+                    className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus-gradient-border transition-all font-medium"
                   />
                 </div>
 
@@ -151,7 +154,7 @@ export function ContactSection() {
                       setFormState({ ...formState, email: e.target.value })
                     }
                     placeholder="votre@email.com"
-                    className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+                    className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus-gradient-border transition-all font-medium"
                   />
                 </div>
               </div>
@@ -170,7 +173,7 @@ export function ContactSection() {
                     setFormState({ ...formState, message: e.target.value })
                   }
                   placeholder="Votre message..."
-                  className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none font-medium"
+                  className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus-gradient-border transition-all resize-none font-medium"
                 />
               </div>
 
@@ -198,6 +201,54 @@ export function ContactSection() {
           </motion.div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isSocialsModalOpen}
+        onClose={() => setIsSocialsModalOpen(false)}
+        title="Tous mes réseaux"
+        size="md"
+      >
+        <div className="space-y-3">
+          <p className="text-sm text-muted">
+            Choisissez un canal pour me contacter ou suivre mon travail.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {socials.map((social) => (
+              <a
+                key={social.id}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 hover:border-primary/60 hover:bg-card transition-colors"
+              >
+                <div className="h-10 w-10 flex items-center justify-center shrink-0">
+                  <Image
+                    src={social.image}
+                    alt={social.label}
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 object-contain"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-foreground">{social.label}</p>
+                  <p className="text-xs text-muted truncate">
+                    {social.url.startsWith("mailto:") 
+                      ? social.url.replace("mailto:", "") 
+                      : social.url.startsWith("tel:") 
+                        ? social.url.replace("tel:", "") 
+                        : social.url.replace(/^https?:\/\/(www\.)?/, "")}
+                  </p>
+                </div>
+                <ExternalLink
+                  size={16}
+                  className="text-muted group-hover:text-primary transition-colors shrink-0"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </Modal>
     </AnimatedSection>
   );
 }

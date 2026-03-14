@@ -30,10 +30,4 @@ export const socials: SocialLink[] = [
     url: "tel:+33769817638",
     image: "/assets/socials/whatsapp.png",
   },
-  {
-    id: "instagram",
-    label: "Instagram",
-    url: "https://www.instagram.com/raphaeldaviot/",
-    image: "/assets/socials/insta.png",
-  },
 ];
