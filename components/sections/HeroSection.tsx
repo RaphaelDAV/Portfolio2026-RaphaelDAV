@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Download, ArrowDown, Search } from "lucide-react";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { Tag } from "@/components/ui/Tag";
+import Squares from "@/components/ui/Squares";
 import { profile } from "@/data/profile";
 
 export function HeroSection() {
@@ -19,12 +20,47 @@ export function HeroSection() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/3 rounded-full blur-[100px]" />
             </div>
 
-            {/* Grid pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(135,89,222,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(135,89,222,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+            {/* Animated moving grid */}
+            <Squares
+                direction="diagonal"
+                speed={0.2}
+                squareSize={48}
+                borderColor="rgba(255, 255, 255, 0.03)"
+                hoverFillColor="rgba(135, 89, 222, 0.12)"
+                className="absolute inset-0"
+            />
 
-            <div className="relative z-10 max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 w-full min-h-screen flex flex-col justify-center lg:justify-start py-20 lg:py-0">
+            <div className="relative z-10 max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 w-full min-h-screen flex flex-col justify-center lg:justify-start py-20 pb-[52vh] lg:py-0 lg:pb-0">
+                {/* Photo collée en bas (Mobile) */}
+                <motion.div
+                    initial={{ opacity: 0, y: 60 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
+                    className="lg:hidden absolute bottom-0 left-1/2 -translate-x-1/2 h-[50vh] w-full max-w-[800px] flex justify-center items-end pointer-events-none select-none z-0"
+                >
+                    <img
+                        src="/assets/profile.png"
+                        alt={profile.fullName}
+                        className="h-full w-auto object-contain object-bottom"
+                    />
+                </motion.div>
+
+                {/* Photo de fond collée en bas (Desktop) */}
+                <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+                    className="hidden lg:flex absolute bottom-0 right-0 h-[90vh] w-1/2 justify-center items-end pointer-events-none select-none"
+                >
+                    <img
+                        src="/assets/profile.png"
+                        alt={profile.fullName}
+                        className="h-full w-auto object-contain object-bottom"
+                    />
+                </motion.div>
+
                 {/* Contenu central - Portfolio */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
+                <div className="relative z-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
                     {/* Text content */}
                     <div className="order-2 lg:order-1 flex justify-center">
                         {/* Bloc relié */}
@@ -40,7 +76,7 @@ export function HeroSection() {
                             </div>
 
                             {/* Portfolio */}
-                            <h1 className="text-7xl sm:text-9xl md:text-9xl font-bold whitespace-nowrap">
+                            <h1 className="text-7xl lg:text-8xl xl:text-9xl font-bold whitespace-nowrap">
                                 <span className="text-white">Port</span>
                                 <span className="text-gradient">folio</span>
                             </h1>
@@ -65,70 +101,12 @@ export function HeroSection() {
                         </motion.div>
                     </div>
 
-                    {/* Photo / visual */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-                        className="order-1 lg:order-2 flex justify-center"
-                    >
-                        <div className="relative">
-                            {/* Outer glow ring */}
-                            <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 blur-2xl animate-pulse-glow" />
-
-                            {/* Photo frame */}
-                            <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-2 border-primary/30 glow-md">
-                                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-card to-secondary/20" />
-                                {/* Avatar placeholder */}
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-7xl sm:text-8xl font-bold text-primary/30">
-                                        RD
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Orbiting elements */}
-                            <div className="absolute -inset-8 sm:-inset-12">
-                                <div
-                                    className="animate-orbit absolute top-1/2 left-1/2"
-                                    style={
-                                        {
-                                            "--orbit-radius": "160px",
-                                            "--orbit-duration": "20s",
-                                        } as React.CSSProperties
-                                    }
-                                >
-                                    <div className="w-3 h-3 rounded-full bg-primary/40" />
-                                </div>
-                                <div
-                                    className="animate-orbit absolute top-1/2 left-1/2"
-                                    style={
-                                        {
-                                            "--orbit-radius": "140px",
-                                            "--orbit-duration": "25s",
-                                        } as React.CSSProperties
-                                    }
-                                >
-                                    <div className="w-2 h-2 rounded-full bg-secondary/40" />
-                                </div>
-                                <div
-                                    className="animate-orbit absolute top-1/2 left-1/2"
-                                    style={
-                                        {
-                                            "--orbit-radius": "180px",
-                                            "--orbit-duration": "30s",
-                                        } as React.CSSProperties
-                                    }
-                                >
-                                    <div className="w-2.5 h-2.5 rounded-full bg-accent/40" />
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
+                    {/* Espace réservé colonne visuelle sur desktop */}
+                    <div className="order-1 lg:order-2 hidden lg:block" />
                 </div>
 
                 {/* Contenu en bas - dans le flow sur petit écran, positionné aux 3/4 sur grand écran */}
-                <div className="mt-12 lg:mt-0 lg:absolute lg:top-[75vh] lg:left-1/2 lg:-translate-x-1/2 z-10 w-full max-w-[1500px]">
+                <div className="relative z-20 mt-12 lg:mt-0 lg:absolute lg:top-[75vh] lg:left-1/2 lg:-translate-x-1/2 w-full max-w-[1500px]">
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col items-center gap-2">
                             <motion.div
@@ -155,7 +133,7 @@ export function HeroSection() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.55 }}
-                                className="text-center text-sm sm:text-base text-white max-w-sm px-4"
+                                className="text-center text-sm sm:text-base text-white max-w-sm px-4 drop-shadow-[0_2px_4px_rgba(0,0,0,1)]"
                             >
                                 Je suis à la <span className="text-gradient font-semibold">recherche d'une alternance</span> à partir <span className="text-gradient font-semibold"> de Septembre 2026</span>
                             </motion.p>
