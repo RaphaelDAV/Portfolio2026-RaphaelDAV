@@ -1,3 +1,8 @@
+import { defaultLocale, type Locale } from "@/lib/i18n";
+import { createLocalizedValue } from "@/lib/localized-data";
+import { socials as frSocials } from "@/data/fr/socials";
+import { socials as enSocials } from "@/data/en/socials";
+
 export interface SocialLink {
   id: string;
   label: string;
@@ -5,29 +10,13 @@ export interface SocialLink {
   image: string;
 }
 
-export const socials: SocialLink[] = [
-  {
-    id: "github",
-    label: "GitHub",
-    url: "https://github.com/RaphaelDAV",
-    image: "/assets/socials/github.png",
-  },
-  {
-    id: "linkedin",
-    label: "LinkedIn",
-    url: "https://www.linkedin.com/in/raphael-daviot/",
-    image: "/assets/socials/linkedin.png",
-  },
-  {
-    id: "email",
-    label: "Email",
-    url: "mailto:daviotraphael@gmail.com",
-    image: "/assets/socials/gmail.png",
-  },
-  {
-    id: "phone",
-    label: "Téléphone",
-    url: "tel:+33769817638",
-    image: "/assets/socials/whatsapp.png",
-  },
-];
+const socialsByLocale: Record<Locale, SocialLink[]> = {
+  fr: frSocials,
+  en: enSocials,
+};
+
+export function getSocials(locale: Locale = defaultLocale): SocialLink[] {
+  return socialsByLocale[locale];
+}
+
+export const socials = createLocalizedValue(socialsByLocale);

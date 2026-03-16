@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import type { Project } from "@/types/project";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 interface ProjectNavigationProps {
   previous: Project | null;
@@ -14,6 +15,8 @@ export function ProjectNavigation({
   previous,
   next,
 }: ProjectNavigationProps) {
+  const { t } = useI18n();
+
   return (
     <section className="py-12 border-t border-border">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +38,7 @@ export function ProjectNavigation({
                 />
                 <div className="text-right">
                   <p className="text-xs text-muted uppercase tracking-wider">
-                    Projet précédent
+                    {t("projectPage.previousProject")}
                   </p>
                   <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                     {previous.title}
@@ -60,7 +63,7 @@ export function ProjectNavigation({
               >
                 <div className="text-left">
                   <p className="text-xs text-muted uppercase tracking-wider">
-                    Projet suivant
+                    {t("projectPage.nextProject")}
                   </p>
                   <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                     {next.title}

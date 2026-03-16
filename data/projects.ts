@@ -1,226 +1,34 @@
-﻿import { Project } from "@/types/project";
+﻿import { defaultLocale, type Locale } from "@/lib/i18n";
+import { createLocalizedValue } from "@/lib/localized-data";
+import { Project } from "@/types/project";
+import {
+  projectOrder as frProjectOrder,
+  projects as frProjects,
+} from "@/data/fr/projects";
+import {
+  projectOrder as enProjectOrder,
+  projects as enProjects,
+} from "@/data/en/projects";
 
-/** Ordered list of project IDs — determines the display order in the grid */
-export const projectOrder: string[] = [
-  "snchess",
-  "portfolio-nextjs",
-  "wikirace",
-  "projet-api",
-  "application-java",
-  "outil-vba",
-  "projet-bdd",
-];
+const projectsByLocale: Record<Locale, Project[]> = {
+  fr: frProjects,
+  en: enProjects,
+};
 
-export const projects: Project[] = [
-  {
-    id: "snchess",
-    slug: "snchess",
-    title: "SNChesS",
-    shortDescription: "Jeu d'echecs complet developpe en C.",
-    fullDescription:
-      "Le projet SCN'Hess représente une solution innovante pour la réservation de billets de train dans le contexte de l'ouverture à la concurrence du marché ferroviaire. Notre objectif était de créer une plateforme intuitive et performante permettant aux utilisateurs de réserver facilement des trajets en TGV.\n\nL'un des principaux défis rencontrés était la gestion complexe du système de réservation, incluant la disponibilité des places, les options personnalisées et le calendrier des prix variables. La mise en place d'une architecture robuste basée sur une base de données relationnelle a été cruciale pour assurer la fiabilité du système.\n\nLa gestion des options personnalisées (place tranquille, prise électrique, bagages supplémentaires) et l'implémentation du système de tarification dynamique ont également représenté des défis techniques importants. L'interface utilisateur a été conçue pour offrir une expérience fluide et intuitive, en mettant l'accent sur la visualisation claire du panier d'achat et la simplicité du processus de paiement.\n\nMalgré ces défis techniques, une approche méthodique et centrée sur l'utilisateur nous a permis de développer une application complète répondant aux exigences spécifiées par le Product Owner, offrant ainsi une alternative compétitive aux plateformes existantes.",
-    year: 2024,
-    category: "Application Bureau",
-    size: "large",
-    technologies: ["C", "Make"],
-    coverImage: "/assets/projects/snchess/background.png",
-    icon: "/assets/projects/snchess/logo6.png",
-    gallery: [
-      "/assets/projects/snchess/screen1.png",
-      "/assets/projects/snchess/screen2.png",
-      "/assets/projects/snchess/screen3.png",
-      "/assets/projects/snchess/screen4.png",
-      "/assets/projects/snchess/screen5.png",
-    ],
-    githubUrl: "https://github.com/raphael-daviot/snchess",
-    learnings: [
-      "Architecture microservices avec Docker",
-      "Gestion d'etat complexe cote client",
-      "Bonnes pratiques de securite pour les applications cloud",
-      "Travail en equipe avec methode Agile",
-    ],
-    difficulties: [
-      "Modelisation complexe des dependances entre services",
-      "Performance des requetes sur de grands volumes de donnees",
-    ],
-  },
-  {
-    id: "portfolio-nextjs",
-    slug: "portfolio-nextjs",
-    title: "Portfolio Next.js",
-    shortDescription:
-      "Portfolio personnel developpe avec Next.js, TypeScript et Tailwind CSS.",
-    fullDescription:
-      "Mon portfolio personnel, concu comme une vitrine de mes competences et projets. Developpe avec les technologies les plus modernes du web.",
-    year: 2026,
-    category: "Site Web",
-    size: "large",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "React"],
-    coverImage: "/assets/projects/bif/background.png",
-    icon: "/assets/projects/bif/logo.png",
-    gallery: [
-      "/assets/projects/bif/screen1.png",
-      "/assets/projects/bif/screen2.png",
-      "/assets/projects/bif/screen3.png",
-      "/assets/projects/bif/screen4.png",
-      "/assets/projects/bif/screen5.png",
-    ],
-    githubUrl: "https://github.com/raphael-daviot/portfolio",
-    liveUrl: "https://raphael-daviot.dev",
-    learnings: [
-      "Maitrise de Next.js App Router",
-      "Animations avancees avec Framer Motion",
-      "Design system coherent avec Tailwind CSS",
-      "Bonnes pratiques d'accessibilite web",
-    ],
-  },
-  {
-    id: "wikirace",
-    slug: "wikirace",
-    title: "Wikirace",
-    shortDescription:
-      "Jeu multijoueur de course sur Wikipedia avec classement en temps reel.",
-    fullDescription:
-      "Wikirace est un jeu en ligne multijoueur ou les participants doivent naviguer d'une page Wikipedia a une autre en utilisant uniquement les liens internes.",
-    year: 2025,
-    category: "Application Web",
-    size: "small",
-    technologies: ["React", "Node.js", "MongoDB", "WebSocket", "TypeScript"],
-    coverImage: "/assets/projects/wikirace/background.png",
-    icon: "/assets/projects/wikirace/logo.png",
-    gallery: [
-      "/assets/projects/wikirace/screen1.png",
-      "/assets/projects/wikirace/screen2.png",
-      "/assets/projects/wikirace/screen3.png",
-      "/assets/projects/wikirace/screen4.png",
-      "/assets/projects/wikirace/screen5.png",
-    ],
-    githubUrl: "https://github.com/raphael-daviot/wikirace",
-    learnings: [
-      "Communication temps reel avec Socket.io",
-      "Scraping et parsing de contenu web",
-      "Gestion d'etat partage entre clients",
-    ],
-  },
-  {
-    id: "projet-api",
-    slug: "projet-api",
-    title: "Projet API REST",
-    shortDescription:
-      "API RESTful complete avec authentification JWT et documentation Swagger.",
-    fullDescription:
-      "Conception et developpement d'une API REST complete en Node.js avec Express. L'API inclut un systeme d'authentification JWT, une documentation Swagger interactive, des tests automatises.",
-    year: 2025,
-    category: "Backend",
-    size: "small",
-    technologies: ["Node.js", "Express", "PostgreSQL", "JWT", "Swagger"],
-    coverImage: "/assets/projects/codex/background.png",
-    icon: "/assets/projects/codex/logo.png",
-    gallery: [
-      "/assets/projects/codex/screen1.png",
-      "/assets/projects/codex/screen2.png",
-      "/assets/projects/codex/screen3.png",
-      "/assets/projects/codex/screen4.png",
-      "/assets/projects/codex/screen5.png",
-    ],
-    githubUrl: "https://github.com/raphael-daviot/api-rest",
-    docUrl: "https://api.example.com/docs",
-    learnings: [
-      "Architecture API RESTful",
-      "Securite : JWT, bcrypt, rate limiting",
-      "Documentation avec Swagger/OpenAPI",
-      "Tests d'integration avec Jest",
-    ],
-  },
-  {
-    id: "application-java",
-    slug: "application-java",
-    title: "Application Java",
-    shortDescription:
-      "Application desktop en Java avec interface graphique JavaFX.",
-    fullDescription:
-      "Application de gestion developpee en Java avec une interface graphique moderne en JavaFX. Architecture MVC respectee avec une couche d'acces aux donnees propre.",
-    year: 2024,
-    category: "Application Desktop",
-    size: "small",
-    technologies: ["Java", "JavaFX", "MySQL", "Maven", "JUnit"],
-    coverImage: "/assets/projects/qix/background.png",
-    icon: "/assets/projects/qix/logo.png",
-    gallery: [
-      "/assets/projects/qix/screen1.png",
-      "/assets/projects/qix/screen2.png",
-      "/assets/projects/qix/screen3.png",
-      "/assets/projects/qix/screen4.png",
-      "/assets/projects/qix/screen5.png",
-    ],
-    githubUrl: "https://github.com/raphael-daviot/app-java",
-    learnings: [
-      "Architecture MVC en Java",
-      "Developpement d'interfaces graphiques avec JavaFX",
-      "Design patterns (Singleton, Observer, Factory)",
-      "Tests unitaires avec JUnit",
-    ],
-  },
-  {
-    id: "outil-vba",
-    slug: "outil-vba",
-    title: "Outil VBA",
-    shortDescription:
-      "Outil d'automatisation Excel avance pour le traitement de donnees.",
-    fullDescription:
-      "Developpement d'un outil d'automatisation complet en VBA pour Excel, permettant le traitement automatise de donnees issues de multiples sources.",
-    year: 2025,
-    category: "Automatisation",
-    size: "small",
-    technologies: ["VBA", "Excel", "Access", "SQL"],
-    coverImage: "/assets/projects/travia/background.png",
-    icon: "/assets/projects/travia/logo.png",
-    gallery: [
-      "/assets/projects/travia/screen1.png",
-      "/assets/projects/travia/screen2.png",
-      "/assets/projects/travia/screen3.png",
-      "/assets/projects/travia/screen4.png",
-      "/assets/projects/travia/screen5.png",
-    ],
-    githubUrl: "https://github.com/raphael-daviot/outil-vba",
-    learnings: [
-      "VBA avance : classes, evenements, API Windows",
-      "Optimisation des performances Excel",
-      "Gestion d'erreurs robuste",
-      "Communication avec des bases Access",
-    ],
-  },
-  {
-    id: "projet-bdd",
-    slug: "projet-bdd",
-    title: "Projet Base de Donnees",
-    shortDescription:
-      "Conception et administration d'une base de donnees relationnelle complexe.",
-    fullDescription:
-      "Projet de conception complete d'une base de donnees relationnelle pour un systeme de gestion de bibliotheque.",
-    year: 2024,
-    category: "Base de donnees",
-    size: "small",
-    technologies: ["PostgreSQL", "SQL", "PL/pgSQL", "pgAdmin"],
-    coverImage: "/assets/projects/unesco/background.png",
-    icon: "/assets/projects/unesco/logo.png",
-    gallery: [
-      "/assets/projects/unesco/screen1.png",
-      "/assets/projects/unesco/screen2.png",
-      "/assets/projects/unesco/screen3.png",
-      "/assets/projects/unesco/screen4.png",
-    ],
-    githubUrl: "https://github.com/raphael-daviot/projet-bdd",
-    learnings: [
-      "Modelisation conceptuelle et logique",
-      "Normalisation de bases de donnees",
-      "PL/pgSQL : triggers et procedures stockees",
-      "Optimisation de requetes SQL",
-    ],
-    difficulties: [
-      "Normaliser correctement le schema jusqu'en 3NF",
-      "Ecrire des procedures stockees performantes",
-      "Optimiser les requetes sur de grands jeux de donnees",
-    ],
-  },
-];
+const projectOrderByLocale: Record<Locale, string[]> = {
+  fr: frProjectOrder,
+  en: enProjectOrder,
+};
+
+export function getProjects(locale: Locale = defaultLocale): Project[] {
+  return projectsByLocale[locale];
+}
+
+export function getProjectOrder(locale: Locale = defaultLocale): string[] {
+  return projectOrderByLocale[locale];
+}
+
+export const projects = createLocalizedValue(projectsByLocale);
+
+/** Ordered list of project IDs - determines the display order in the grid */
+export const projectOrder = createLocalizedValue(projectOrderByLocale);

@@ -1,13 +1,9 @@
-import Link from "next/link";
-import { Heart, Github, Linkedin, Mail, Instagram, Phone } from "lucide-react";
-import { socials } from "@/data/socials";
+"use client";
 
-const footerLinks = [
-  { label: "Accueil", href: "/" },
-  { label: "Projets", href: "/#projects" },
-  { label: "Contact", href: "/#contact" },
-  { label: "Mentions légales", href: "/mentions-legales" },
-];
+import Link from "next/link";
+import { Github, Linkedin, Mail, Instagram, Phone } from "lucide-react";
+import { socials } from "@/data/socials";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 const getLucideIcon = (id: string) => {
   switch (id) {
@@ -21,6 +17,15 @@ const getLucideIcon = (id: string) => {
 };
 
 export function Footer() {
+  const { t } = useI18n();
+
+  const footerLinks = [
+    { label: t("footer.home"), href: "/" },
+    { label: t("footer.projects"), href: "/#projects" },
+    { label: t("footer.contact"), href: "/#contact" },
+    { label: t("footer.legal"), href: "/mentions-legales" },
+  ];
+
   return (
     <footer className="border-t border-border bg-card">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -31,15 +36,14 @@ export function Footer() {
               Raphaël <span className="text-gradient">DAVIOT</span>
             </h3>
             <p className="text-sm text-muted leading-relaxed">
-              Étudiant en BUT Informatique, passionné par le développement web
-              et logiciel.
+              {t("footer.bio")}
             </p>
           </div>
 
           {/* Navigation */}
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-              Navigation
+              {t("footer.navigationHeading")}
             </h4>
             <ul className="space-y-2">
               {footerLinks.map((link) => (
@@ -58,7 +62,7 @@ export function Footer() {
           {/* Social */}
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-              Réseaux
+              {t("footer.networksHeading")}
             </h4>
             <div className="flex gap-4">
               {socials.map((social) => (
@@ -81,7 +85,7 @@ export function Footer() {
         <div className="section-divider mt-8 mb-6" />
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted">
           <p>
-            © {new Date().getFullYear()} Raphaël DAVIOT. Tous droits réservés.
+            {t("footer.copyrightBefore")} {new Date().getFullYear()} {t("footer.copyrightAfter")}
           </p>
 
         </div>

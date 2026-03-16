@@ -10,6 +10,7 @@ import { OrbitSystem } from "@/components/ui/Orbit";
 import { Modal } from "@/components/ui/Modal";
 import { Send, CheckCircle, AlertCircle, ArrowUpRight, ExternalLink } from "lucide-react";
 import { socials } from "@/data/socials";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 const orbitItems = [...socials, ...socials].map((social, index) => ({
   id: `${social.id}-${index}`,
@@ -19,6 +20,7 @@ const orbitItems = [...socials, ...socials].map((social, index) => ({
 }));
 
 export function ContactSection() {
+  const { t } = useI18n();
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -33,7 +35,7 @@ export function ContactSection() {
 
     if (!formState.name || !formState.email || !formState.message) {
       setStatus("error");
-      setErrorMessage("Veuillez remplir tous les champs.");
+      setErrorMessage(t("contact.errorAllFields"));
       return;
     }
 
@@ -50,7 +52,7 @@ export function ContactSection() {
 
       if (!res.ok) {
         setStatus("error");
-        setErrorMessage(data.error || "Erreur lors de l'envoi du message.");
+        setErrorMessage(data.error || t("contact.errorSending"));
         console.error("Erreur API:", data);
         return;
       }
@@ -60,7 +62,7 @@ export function ContactSection() {
       setTimeout(() => setStatus("idle"), 3000);
     } catch (error) {
       setStatus("error");
-      setErrorMessage("Erreur de connexion au serveur.");
+      setErrorMessage(t("contact.errorServer"));
       console.error("Erreur fetch:", error);
     }
   };
@@ -92,10 +94,10 @@ export function ContactSection() {
                     window.open(item.url, "_blank");
                   }
                 }}
-                header={"Formulaire de contact"}
-                title={"Travaillons ensemble!"}
-                description="Je suis à la recherche d’un stage pour Mars 2026 et d’une alternance pour la rentrée de Septembre 2026"
-                buttonText="Voir mes réseaux"
+                header={t("contact.title")}
+                title={t("contact.orbitTitle")}
+                description={t("contact.orbitDescription")}
+                buttonText={t("contact.viewNetworks")}
                 buttonIcon={<ArrowUpRight size={18} />}
                 buttonOnClick={() => handleOpenModal()}
                 buttonVariant="white"
@@ -113,10 +115,10 @@ export function ContactSection() {
           >
             <div className="mb-10 text-center">
               <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-2">
-                Formulaire de contact
+                {t("contact.title")}
               </h2>
               <p className="text-muted text-md">
-                Envie de collaborer ? N'hésitez pas à me contacter via ce formulaire.
+                {t("contact.formSubtitle")}
               </p>
             </div>
 
@@ -125,7 +127,7 @@ export function ContactSection() {
                 <div className="flex flex-col gap-2 relative">
                   <label htmlFor="name" className="w-fit">
                     <Tag size="sm" className="tracking-wide">
-                      Votre nom
+                      {t("contact.nameLabel")}
                     </Tag>
                   </label>
                   <input
@@ -135,7 +137,7 @@ export function ContactSection() {
                     onChange={(e) =>
                       setFormState({ ...formState, name: e.target.value })
                     }
-                    placeholder="Votre nom"
+                    placeholder={t("contact.namePlaceholder")}
                     className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus-gradient-border transition-all font-medium"
                   />
                 </div>
@@ -143,7 +145,7 @@ export function ContactSection() {
                 <div className="flex flex-col gap-2 relative">
                   <label htmlFor="email" className="w-fit">
                     <Tag size="sm" className="tracking-wide">
-                      Votre email
+                      {t("contact.emailLabel")}
                     </Tag>
                   </label>
                   <input
@@ -153,7 +155,7 @@ export function ContactSection() {
                     onChange={(e) =>
                       setFormState({ ...formState, email: e.target.value })
                     }
-                    placeholder="votre@email.com"
+                    placeholder={t("contact.emailPlaceholder")}
                     className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus-gradient-border transition-all font-medium"
                   />
                 </div>
@@ -162,7 +164,7 @@ export function ContactSection() {
               <div className="flex flex-col gap-2 relative">
                 <label htmlFor="message" className="w-fit">
                   <Tag size="sm" className="tracking-wide">
-                    Votre message
+                    {t("contact.messageLabel")}
                   </Tag>
                 </label>
                 <textarea
@@ -172,7 +174,7 @@ export function ContactSection() {
                   onChange={(e) =>
                     setFormState({ ...formState, message: e.target.value })
                   }
-                  placeholder="Votre message..."
+                  placeholder={t("contact.messagePlaceholder")}
                   className="w-full mt-1 px-5 py-2 rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus-gradient-border transition-all resize-none font-medium"
                 />
               </div>
@@ -181,7 +183,7 @@ export function ContactSection() {
               {status === "success" && (
                 <div className="flex items-center gap-2 text-sm font-medium text-green-400 bg-green-400/10 px-4 py-3 rounded-lg border border-green-400/20">
                   <CheckCircle size={18} />
-                  Message envoyé avec succès !
+                  {t("contact.successMessage")}
                 </div>
               )}
               {status === "error" && (
@@ -194,7 +196,7 @@ export function ContactSection() {
               <div className="flex justify-center pt-4">
                 <GlowButton type="submit" variant="gradient" size="md" className="group flex items-center">
                   <Send size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  <span className="font-bold tracking-wide">Envoyer</span>
+                  <span className="font-bold tracking-wide">{t("contact.send")}</span>
                 </GlowButton>
               </div>
             </form>
@@ -205,12 +207,12 @@ export function ContactSection() {
       <Modal
         isOpen={isSocialsModalOpen}
         onClose={() => setIsSocialsModalOpen(false)}
-        title="Tous mes réseaux"
+        title={t("contact.socialsModalTitle")}
         size="md"
       >
         <div className="space-y-3">
           <p className="text-sm text-muted">
-            Choisissez un canal pour me contacter ou suivre mon travail.
+            {t("contact.socialsModalDescription")}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {socials.map((social) => (

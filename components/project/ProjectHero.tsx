@@ -6,12 +6,15 @@ import { Tag } from "@/components/ui/Tag";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { ArrowLeft, Github, ExternalLink, FileText } from "lucide-react";
 import type { Project } from "@/types/project";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 interface ProjectHeroProps {
   project: Project;
 }
 
 export function ProjectHero({ project }: ProjectHeroProps) {
+  const { t } = useI18n();
+
   return (
     <section className="relative pt-24 pb-16 overflow-hidden">
       {/* Hero background image */}
@@ -46,7 +49,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
         >
           <GlowButton href="/#projects" variant="ghost" size="sm">
             <ArrowLeft size={16} />
-            Retour aux projets
+            {t("projectPage.backToProjects")}
           </GlowButton>
         </motion.div>
 
@@ -100,7 +103,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 external
               >
                 <Github size={16} className="text-white fill-white" />
-                Code source
+                {t("projectPage.sourceCode")}
               </GlowButton>
             )}
             {project.liveUrl && (
@@ -111,7 +114,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 external
               >
                 <ExternalLink size={16} />
-                Voir la démo
+                {t("projectPage.viewDemo")}
               </GlowButton>
             )}
             {project.docUrl && (
@@ -122,7 +125,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 external
               >
                 <FileText size={16} />
-                Documentation
+                {t("projectPage.documentation")}
               </GlowButton>
             )}
           </motion.div>

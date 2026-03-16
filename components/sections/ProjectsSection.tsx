@@ -3,8 +3,11 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { projects, projectOrder } from "@/data/projects";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 export function ProjectsSection() {
+  const { t } = useI18n();
+
   return (
     <AnimatedSection id="projects" className="py-24 md:py-32 bg-background overflow-x-hidden">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
@@ -14,14 +17,14 @@ export function ProjectsSection() {
           <div className="relative flex items-center justify-center">
             {/* Outline text (behind) */}
             <h2 className="text-[3rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none font-black uppercase tracking-normal text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.8)] md:[-webkit-text-stroke:3px_rgba(255,255,255,0.8)] select-none drop-shadow-md">
-              Portfolio
+              {t("projects.title")}
             </h2>
             {/* Front text masking the inner strokes to match background */}
             <h2 aria-hidden="true" className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-[3rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none font-black uppercase tracking-normal text-[#0f0f11] select-none pointer-events-none">
-              Portfolio
+              {t("projects.title")}
             </h2>
             <span className="absolute -bottom-1 md:-bottom-2 right-10 z-10 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white ">
-              Mes projets
+              {t("projects.subtitle")}
             </span>
           </div>
         </div>

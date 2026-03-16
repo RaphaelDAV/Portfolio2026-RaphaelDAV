@@ -6,17 +6,19 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-
-const navLinks = [
-    { label: "ACCUEIL", href: "/#hero" },
-    { label: "A PROPOS", href: "/#about" },
-    { label: "MES PROJETS", href: "/#projects" },
-];
+import { useI18n } from "@/components/providers/I18nProvider";
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
+    const { locale, setLocale, t } = useI18n();
     const pathname = usePathname();
+
+    const navLinks = [
+        { label: t("navbar.home"), href: "/#hero" },
+        { label: t("navbar.about"), href: "/#about" },
+        { label: t("navbar.projects"), href: "/#projects" },
+    ];
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -76,26 +78,56 @@ export function Navbar() {
                             ))}
                         </div>
 
-                        {/* Contact button - right */}
-                        <Link
-                            href="/#contact"
-                            onClick={() => handleNavClick("/#contact")}
-                            className="hidden md:block relative px-6 py-2 rounded-full text-sm font-semibold text-white transition-all duration-300 z-50 overflow-hidden group"
-                            style={{
-                                background: 'transparent',
-                            }}
-                        >
-                            <span className="absolute inset-0 rounded-full border-2 border-transparent bg-origin-border transition-opacity duration-300 group-hover:opacity-100 opacity-70" style={{
-                                background: 'linear-gradient(#0a0a0b, #0a0a0b) padding-box, linear-gradient(135deg, #8759DE, #CA367A, #EF622A) border-box',
-                            }}></span>
-                            <span className="relative z-10 group-hover:text-gradient transition-all duration-300">CONTACT</span>
-                        </Link>
+                        {/* Right controls */}
+                        <div className="hidden md:flex items-center gap-5 z-50">
+                            <div className="flex items-center gap-3 text-sm font-semibold tracking-wide">
+                                <button
+                                    type="button"
+                                    onClick={() => setLocale("fr")}
+                                    className={cn(
+                                        "transition-colors cursor-pointer",
+                                        locale === "fr"
+                                            ? "text-white underline decoration-2 underline-offset-4 hover:text-white/85"
+                                            : "text-muted-foreground hover:text-foreground"
+                                    )}
+                                >
+                                    FR
+                                </button>
+                                <span className="text-muted-foreground/50">/</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setLocale("en")}
+                                    className={cn(
+                                        "transition-colors cursor-pointer",
+                                        locale === "en"
+                                            ? "text-white underline decoration-2 underline-offset-4 hover:text-white/85"
+                                            : "text-muted-foreground hover:text-foreground"
+                                    )}
+                                >
+                                    EN
+                                </button>
+                            </div>
+
+                            <Link
+                                href="/#contact"
+                                onClick={() => handleNavClick("/#contact")}
+                                className="relative px-6 py-2 rounded-full text-sm font-semibold text-white transition-all duration-300 overflow-hidden group"
+                                style={{
+                                    background: 'transparent',
+                                }}
+                            >
+                                <span className="absolute inset-0 rounded-full border-2 border-transparent bg-origin-border transition-opacity duration-300 group-hover:opacity-100 opacity-70" style={{
+                                    background: 'linear-gradient(#0a0a0b, #0a0a0b) padding-box, linear-gradient(135deg, #8759DE, #CA367A, #EF622A) border-box',
+                                }}></span>
+                                <span className="relative z-10 group-hover:text-gradient transition-all duration-300">{t("navbar.contact")}</span>
+                            </Link>
+                        </div>
 
                         {/* Mobile menu button */}
                         <button
                             onClick={() => setIsMobileOpen(!isMobileOpen)}
                             className="md:hidden p-2 rounded-lg text-muted hover:text-foreground hover:bg-surface-light transition-colors z-50"
-                            aria-label="Menu"
+                            aria-label={t("navbar.menuAriaLabel")}
                         >
                             {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>

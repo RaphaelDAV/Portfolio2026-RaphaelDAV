@@ -2,6 +2,7 @@
 
 import { Sparkles } from "lucide-react";
 import { Tag } from "@/components/ui/Tag";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 interface CharacteristicsCardProps {
     characteristics: string[][];
@@ -10,6 +11,8 @@ interface CharacteristicsCardProps {
 export function CharacteristicsCard({
     characteristics,
 }: CharacteristicsCardProps) {
+    const { t } = useI18n();
+
     return (
         <div className="relative h-full p-6 rounded-2xl bg-card border border-border overflow-hidden glow-sm">
             {/* Decorative gradient */}
@@ -24,11 +27,11 @@ export function CharacteristicsCard({
                         </div>
                         <div>
                             <h3 className="text-xl font-bold text-foreground">
-                                Caractéristiques
+                                {t("characteristics.title")}
                             </h3>
                         </div>
                     </div>
-                    <p className="text-md text-muted-foreground">Des compétences techniques et humaines construites au fil de mon parcours universitaire.</p>
+                    <p className="text-md text-muted-foreground">{t("characteristics.description")}</p>
                 </div>
 
                 {/* Spacer pour pousser les listes vers le bas */}

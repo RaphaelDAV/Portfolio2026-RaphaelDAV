@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { FlipCard, type FlipCardData } from "@/components/cards/FlipCard";
 import { experiences } from "@/data/experiences";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 const ordered = [...experiences];
 
@@ -17,6 +18,7 @@ export function AllExperiencesModal({
   isOpen,
   onClose,
 }: AllExperiencesModalProps) {
+  const { t } = useI18n();
   const [active, setActive] = useState(0);
   const [fits, setFits] = useState(true);
 
@@ -68,7 +70,7 @@ export function AllExperiencesModal({
             transition={{ delay: 0.1 }}
             onClick={onClose}
             className="absolute top-6 right-6 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-            aria-label="Fermer"
+            aria-label={t("modal.closeAriaLabel")}
           >
             <X size={22} />
           </motion.button>
@@ -81,7 +83,7 @@ export function AllExperiencesModal({
             transition={{ delay: 0.1 }}
             className="relative z-10 mb-8 text-mds font-semibold tracking-[0.25em] uppercase text-gradient"
           >
-            Mes Expériences
+            {t("modal.experiences.title")}
           </motion.p>
 
           {/* Zone cartes */}
@@ -118,19 +120,19 @@ export function AllExperiencesModal({
                   // Sections personnalisées pour le verso
                   const backSections = [
                     {
-                      title: "Missions",
+                      title: t("modal.experiences.missions"),
                       items: exp.missions.slice(0, 5),
                       variant: "default" as const,
                     },
                     {
-                      title: "Technologies",
+                      title: t("modal.experiences.technologies"),
                       items: exp.technologies.slice(0, 5),
                       variant: "primary" as const,
                     },
                     ...(exp.results && exp.results.length > 0
                       ? [
                           {
-                            title: "Résultats",
+                            title: t("modal.experiences.results"),
                             items: exp.results.slice(0, 3),
                             variant: "default" as const,
                           },
@@ -149,7 +151,7 @@ export function AllExperiencesModal({
                         transition={{ duration: 0.35, delay: 0.1 + index * 0.12 }}
                         className="mb-3 text-xs font-bold tracking-[0.2em] uppercase text-white/40"
                       >
-                        {exp.type || "Expérience"}
+                          {exp.type || t("modal.experiences.defaultType")}
                       </motion.span>
                       <FlipCard 
                         data={cardData} 

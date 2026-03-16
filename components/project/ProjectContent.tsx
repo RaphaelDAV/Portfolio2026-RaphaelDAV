@@ -6,6 +6,7 @@ import { Wrench, AlertTriangle, Sparkles, FileText, ChevronLeft, ChevronRight, I
 import type { Project } from "@/types/project";
 import { TechMarquee } from "./TechMarquee";
 import { useState } from "react";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 interface ProjectContentProps {
   project: Project;
@@ -40,6 +41,7 @@ function ContentBlock({
 }
 
 export function ProjectContent({ project }: ProjectContentProps) {
+  const { t } = useI18n();
   const [currentImage, setCurrentImage] = useState(0);
 
   const nextImage = () => {
@@ -61,7 +63,7 @@ export function ProjectContent({ project }: ProjectContentProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="lg:col-span-2">
             <ContentBlock
-              title="Description"
+              title={t("projectPage.descriptionTitle")}
               icon={<FileText size={20} className="text-primary" />}
             >
               <div className="text-muted leading-relaxed space-y-4 text-justify">
@@ -74,13 +76,13 @@ export function ProjectContent({ project }: ProjectContentProps) {
 
           <div className="lg:col-span-1">
             <ContentBlock
-              title="Stack technique"
+              title={t("projectPage.techStackTitle")}
               icon={<Wrench size={20} className="text-primary" />}
               delay={0.1}
             >
               <div className="flex flex-col h-full">
                 <p className="text-muted text-md pb-1  mb-0">
-                  Vue d'ensemble de l'écosystème technique et des outils utilisés pour réaliser ce projet :
+                  {t("projectPage.techStackDescription")}
                 </p>
                 <div className="w-full flex-grow flex items-center justify-center">
                   <TechMarquee technologies={project.technologies} />
@@ -99,7 +101,7 @@ export function ProjectContent({ project }: ProjectContentProps) {
               <div className="flex flex-col gap-4 lg:col-span-1 xl:col-span-1 h-full">
                 {project.difficulties && project.difficulties.length > 0 && (
                   <ContentBlock
-                    title="Difficultés rencontrées"
+                    title={t("projectPage.difficultiesTitle")}
                     icon={<AlertTriangle size={20} className="text-amber-400" />}
                     delay={0.1}
                   >
@@ -119,7 +121,7 @@ export function ProjectContent({ project }: ProjectContentProps) {
 
                 {project.learnings.length > 0 && (
                   <ContentBlock
-                    title="Ce que j'ai appris"
+                    title={t("projectPage.learningsTitle")}
                     icon={<Sparkles size={20} className="text-secondary" />}
                     delay={0.1}
                   >
@@ -143,7 +145,7 @@ export function ProjectContent({ project }: ProjectContentProps) {
             {project.gallery && project.gallery.length > 0 && (
               <div className="lg:col-span-2 xl:col-span-3 h-full">
                 <ContentBlock
-                  title="Galerie & UI"
+                  title={t("projectPage.galleryTitle")}
                   icon={<ImageIcon size={20} className="text-primary" />}
                   delay={0.1}
                 >
@@ -166,14 +168,14 @@ export function ProjectContent({ project }: ProjectContentProps) {
                         <button
                           onClick={prevImage}
                           className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 flex items-center justify-center text-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background z-10 cursor-pointer"
-                          aria-label="Image précédente"
+                          aria-label={t("projectPage.previousImageAria")}
                         >
                           <ChevronLeft size={24} />
                         </button>
                         <button
                           onClick={nextImage}
                           className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 flex items-center justify-center text-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background z-10 cursor-pointer"
-                          aria-label="Image suivante"
+                          aria-label={t("projectPage.nextImageAria")}
                         >
                           <ChevronRight size={24} />
                         </button>
@@ -187,7 +189,7 @@ export function ProjectContent({ project }: ProjectContentProps) {
                                   ? "bg-primary w-4"
                                   : "bg-white/50 hover:bg-white/80"
                               }`}
-                              aria-label={`Aller à l'image ${i + 1}`}
+                              aria-label={`${t("projectPage.goToImageAriaPrefix")} ${i + 1}`}
                             />
                           ))}
                         </div>

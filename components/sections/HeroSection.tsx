@@ -5,9 +5,12 @@ import { Download, ArrowDown, Search } from "lucide-react";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { Tag } from "@/components/ui/Tag";
 import Squares from "@/components/ui/Squares";
+import { useI18n } from "@/components/providers/I18nProvider";
 import { profile } from "@/data/profile";
 
 export function HeroSection() {
+    const { t } = useI18n();
+
     return (
         <section
             id="hero"
@@ -88,10 +91,10 @@ export function HeroSection() {
                             <div className="flex items-center justify-between gap-4">
                                 <div className="flex flex-wrap gap-2">
                                     <Tag size="sm" showArrow>
-                                        Étudiant
+                                        {t("hero.student")}
                                     </Tag>
                                     <Tag size="sm" showArrow>
-                                        BUT Informatique
+                                        {t("hero.but")}
                                     </Tag>
                                 </div>
                                 <p className="text-md sm:text-xl font-semibold text-gradient whitespace-nowrap">
@@ -121,7 +124,7 @@ export function HeroSection() {
                                     className="group inline-flex items-center gap-4 pl-10 rounded-full bg-white/5 backdrop-blur-md transition-all duration-300"
                                 >
                                     <span className="text-white uppercase font-bold text-sm">
-                                        Télécharger mon CV
+                                        {t("hero.downloadCv")}
                                     </span>
                                     <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                         <Download size={20} className="text-background" />
@@ -135,7 +138,14 @@ export function HeroSection() {
                                 transition={{ duration: 0.6, delay: 0.55 }}
                                 className="text-center text-sm sm:text-base text-white max-w-sm px-4 drop-shadow-[0_2px_4px_rgba(0,0,0,1)]"
                             >
-                                Je suis à la <span className="text-gradient font-semibold">recherche d'une alternance</span> à partir <span className="text-gradient font-semibold"> de Septembre 2026</span>
+                                {t("hero.lookingForPrefix")}
+                                <span className="text-gradient font-semibold">
+                                    {t("hero.lookingForRole")}
+                                </span>
+                                {t("hero.lookingForMiddle")}
+                                <span className="text-gradient font-semibold">
+                                    {t("hero.lookingForDate")}
+                                </span>
                             </motion.p>
 
                             {/* Scroll indicator */}
@@ -145,7 +155,7 @@ export function HeroSection() {
                                 transition={{ delay: 1.2 }}
                                 className="hidden lg:flex flex-col items-center text-muted mt-8"
                             >
-                                <span className="text-xs uppercase tracking-wider">Défiler</span>
+                                <span className="text-xs uppercase tracking-wider">{t("hero.scroll")}</span>
                                 <motion.div
                                     animate={{ y: [0, 8, 0] }}
                                     transition={{ duration: 1.5, repeat: Infinity }}

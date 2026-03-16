@@ -8,14 +8,16 @@ import { ClickableAboutCard } from "@/components/cards/ClickableAboutCard";
 import { CharacteristicsCard } from "@/components/cards/CharacteristicsCard";
 import { AllEducationsModal } from "@/components/modals/AllEducationsModal";
 import { AllExperiencesModal } from "@/components/modals/AllExperiencesModal";
-import { GraduationCap, Briefcase, ArrowUpRight, FolderOpen, Award, Rocket,FolderCode } from "lucide-react";
+import { GraduationCap, Briefcase, ArrowUpRight, FolderOpen, FolderCode } from "lucide-react";
 import { profile } from "@/data/profile";
 import { education } from "@/data/education";
 import { experiences } from "@/data/experiences";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 export function AboutSection() {
   const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
   const [isExperienceModalOpen, setIsExperienceModalOpen] = useState(false);
+  const { t } = useI18n();
 
   // Récupérer le premier élément de chaque tableau pour l'aperçu
   const firstEducation = education[0];
@@ -28,23 +30,23 @@ export function AboutSection() {
           {/* Header centré */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl font-bold text-foreground mb-1">
-              Qui suis-je ?
+              {t("about.title")}
             </h2>
             <p className="text-2xl font-semibold text-foreground mb-3">
-              Un Étudiant En Constante Évolution.
+              {t("about.subtitle")}
             </p>
             <p className="text-md text-muted-foreground mb-5">
-              En construction vers un profil d’ingénieur logiciel et manager éclairé.
+              {t("about.description")}
             </p>
             
             {/* 2 CTAs */}
             <div className="flex flex-wrap gap-4 justify-center">
               <GlowButton href="/#projects" variant="gradient" size="md">
                 <FolderOpen size={18} />
-                Voir mes projets
+                {t("about.viewProjects")}
               </GlowButton>
               <GlowButton href="/#contact" variant="ghost" size="md">
-                Me Contacter
+                {t("about.contact")}
                 <ArrowUpRight size={18} />
               </GlowButton>
             </div>
@@ -56,7 +58,13 @@ export function AboutSection() {
             <PresentationCard 
               text={
                 <>
-                  Étudiant en 3eme année de <strong>BUT informatique</strong>, je suis ambitieux, organisé, et persévérant. Mes compétences en programmation sont polyvalentes, et je cherche à intégrer une <strong>école d'ingénieur</strong> après mon BUT pour faciliter mon entrée dans le monde professionnel. Je suis actuellement à la recherche d'une <strong>alternance en informatique</strong> pour la rentrée 2026.
+                  {t("about.presentationPrefix")}
+                  <strong>{t("about.presentationStrong1")}</strong>
+                  {t("about.presentationMiddle1")}
+                  <strong>{t("about.presentationStrong2")}</strong>
+                  {t("about.presentationMiddle2")}
+                  <strong>{t("about.presentationStrong3")}</strong>
+                  {t("about.presentationSuffix")}
                 </>
               } 
             />
@@ -64,12 +72,12 @@ export function AboutSection() {
             {/* 2. Carte diplômes */}
             <div className="md:col-span-2 h-full">
               <ClickableAboutCard
-                title="Mes Diplômes"
+                title={t("about.educationCardTitle")}
                 icon={<GraduationCap size={24} />}
                 mainText={firstEducation.diploma}
                 tags={[firstEducation.school]}
                 description={firstEducation.description}
-                footerText="Cliquer pour voir tous mes diplômes"
+                footerText={t("about.educationCardFooter")}
                 backgroundIcon={<GraduationCap size={250} />}
                 onClick={() => setIsEducationModalOpen(true)}
               />
@@ -78,12 +86,12 @@ export function AboutSection() {
             {/* 3. Carte expériences */}
             <div className="md:col-span-2 h-full">
               <ClickableAboutCard
-                title="Mes Expériences"
+                title={t("about.experiencesCardTitle")}
                 icon={<Briefcase size={24} />}
                 mainText={firstExperience.role}
                 tags={[firstExperience.company]}
                 description={firstExperience.description}
-                footerText="Cliquer pour voir toutes mes expériences"
+                footerText={t("about.experiencesCardFooter")}
                 backgroundIcon={<FolderCode size={250} />}
                 onClick={() => setIsExperienceModalOpen(true)}
               />

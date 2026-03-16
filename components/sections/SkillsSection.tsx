@@ -6,6 +6,7 @@ import { AllSkillsModal } from "@/components/modals/AllSkillsModal";
 import { OrbitSystem } from "@/components/ui/Orbit";
 import { ArrowUpRight } from "lucide-react";
 import { skills } from "@/data/skills";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 // Map actual skills from data to Orbit items
 const orbitSkills = skills.map((skill) => ({
@@ -17,6 +18,7 @@ const orbitSkills = skills.map((skill) => ({
 export function SkillsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSkillId, setSelectedSkillId] = useState<string | undefined>();
+  const { t } = useI18n();
 
   const handleOpenModal = (skillId?: string) => {
     setSelectedSkillId(skillId);
@@ -33,16 +35,16 @@ export function SkillsSection() {
     <>
       <AnimatedSection id="skills" className="relative bg-background overflow-hidden py-12">
         <OrbitSystem
-          header="Compétences Techniques"
+          header={t("skills.header")}
           title={
             <>
-              Apprendre, <br />
-              Expérimenter & <br />
-              Consolider
+              {t("skills.titleLine1")} <br />
+              {t("skills.titleLine2")} <br />
+              {t("skills.titleLine3")}
             </>
           }
-          description="Des technologies acquises en BUT Informatique et appliquées à travers des projets réels, du développement au déploiement."
-          buttonText="Voir mes compétences"
+          description={t("skills.description")}
+          buttonText={t("skills.viewMore")}
           buttonIcon={<ArrowUpRight size={18} />}
           buttonOnClick={() => handleOpenModal()}
           buttonVariant="white"

@@ -8,8 +8,9 @@ import { Badge } from "@/components/ui/Badge";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { skills } from "@/data/skills";
 import { projects } from "@/data/projects";
-import { skillCategoryLabels, type SkillCategory, type Skill } from "@/types/skill";
+import { type SkillCategory, type Skill } from "@/types/skill";
 import type { Project } from "@/types/project";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 interface AllSkillsModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ interface AllSkillsModalProps {
 }
 
 export function AllSkillsModal({ isOpen, onClose, initialSkillId }: AllSkillsModalProps) {
+  const { t } = useI18n();
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
 
   const categories: SkillCategory[] = [
@@ -48,14 +50,22 @@ export function AllSkillsModal({ isOpen, onClose, initialSkillId }: AllSkillsMod
   const getLevelLabel = (level: string) => {
     switch (level) {
       case "expert":
-        return "Expert";
+        return t("modal.skills.levelExpert");
       case "avance":
-        return "Avancé";
+        return t("modal.skills.levelAdvanced");
       case "intermediaire":
-        return "Intermédiaire";
+        return t("modal.skills.levelIntermediate");
       default:
-        return "Débutant";
+        return t("modal.skills.levelBeginner");
     }
+  };
+
+  const categoryLabels: Record<SkillCategory, string> = {
+    frontend: t("modal.skills.categoryFrontend"),
+    backend: t("modal.skills.categoryBackend"),
+    database: t("modal.skills.categoryDatabase"),
+    devops: t("modal.skills.categoryDevops"),
+    other: t("modal.skills.categoryOther"),
   };
 
   // Trouver les projets reliés à une compétence
@@ -126,11 +136,11 @@ export function AllSkillsModal({ isOpen, onClose, initialSkillId }: AllSkillsMod
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 sm:p-5 md:p-6 border-b border-border">
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground">Toutes mes compétences</h2>
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground">{t("modal.skills.title")}</h2>
               <button
                 onClick={handleClose}
                 className="p-2 rounded-full hover:bg-white/10 transition-colors"
-                aria-label="Fermer"
+                aria-label={t("modal.closeAriaLabel")}
               >
                 <X size={20} className="sm:w-6 sm:h-6" />
               </button>
@@ -147,7 +157,7 @@ export function AllSkillsModal({ isOpen, onClose, initialSkillId }: AllSkillsMod
                   return (
                     <div key={category} className="mb-6 md:mb-8">
                       <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted mb-2 sm:mb-3 md:mb-4 px-1">
-                        {skillCategoryLabels[category]}
+                        {categoryLabels[category]}
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
                         {categorySkills.map((skill) => (
@@ -220,7 +230,7 @@ export function AllSkillsModal({ isOpen, onClose, initialSkillId }: AllSkillsMod
                       {/* Tools */}
                       {selectedSkill.tools && selectedSkill.tools.length > 0 && (
                         <div>
-                          <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 md:mb-3">Outils utilisés</h4>
+                          <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 md:mb-3">{t("modal.skills.tools")}</h4>
                           <div className="flex flex-wrap gap-1.5 md:gap-2">
                             {selectedSkill.tools.map((tool) => (
                               <Badge key={tool} variant="default" size="sm">
@@ -235,7 +245,7 @@ export function AllSkillsModal({ isOpen, onClose, initialSkillId }: AllSkillsMod
                       {relatedProjects.length > 0 && (
                         <div>
                           <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 md:mb-3">
-                            Projets reliés ({relatedProjects.length})
+                            {t("modal.skills.relatedProjects")} ({relatedProjects.length})
                           </h4>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                             {relatedProjects.map((project) => (
@@ -249,7 +259,7 @@ export function AllSkillsModal({ isOpen, onClose, initialSkillId }: AllSkillsMod
 
                       {relatedProjects.length === 0 && (
                         <div className="text-center py-6 md:py-8">
-                          <p className="text-muted text-xs sm:text-sm">Aucun projet utilisant cette compétence pour le moment</p>
+                          <p className="text-muted text-xs sm:text-sm">{t("modal.skills.noProject")}</p>
                         </div>
                       )}
                     </motion.div>

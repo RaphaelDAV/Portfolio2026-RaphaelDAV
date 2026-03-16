@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { FlipCard, type FlipCardData } from "@/components/cards/FlipCard";
 import { education as allEducation } from "@/data/education";
+import { useI18n } from "@/components/providers/I18nProvider";
 
-const levelLabels = ["BAC", "BAC+3", "BAC+5"];
 const ordered = [...allEducation].reverse();
 type EduItem = (typeof ordered)[0];
 
@@ -16,8 +16,15 @@ interface AllEducationsModalProps {
 }
 
 export function AllEducationsModal({ isOpen, onClose }: AllEducationsModalProps) {
+  const { t } = useI18n();
   const [active, setActive] = useState(0);
   const [fits, setFits] = useState(true);
+
+  const levelLabels = [
+    t("modal.education.levelBac"),
+    t("modal.education.levelBac3"),
+    t("modal.education.levelBac5"),
+  ];
 
   const handleEscape = useCallback(
     (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); },
@@ -67,7 +74,7 @@ export function AllEducationsModal({ isOpen, onClose }: AllEducationsModalProps)
             transition={{ delay: 0.1 }}
             onClick={onClose}
             className="absolute top-6 right-6 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-            aria-label="Fermer"
+            aria-label={t("modal.closeAriaLabel")}
           >
             <X size={22} />
           </motion.button>
@@ -80,7 +87,7 @@ export function AllEducationsModal({ isOpen, onClose }: AllEducationsModalProps)
             transition={{ delay: 0.1 }}
             className="relative z-10 mb-8 text-mds font-semibold tracking-[0.25em] uppercase text-gradient"
           >
-            Parcours scolaire
+            {t("modal.education.title")}
           </motion.p>
 
           {/* Zone cartes */}
