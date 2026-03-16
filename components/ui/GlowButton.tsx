@@ -25,7 +25,7 @@ const variantClasses = {
   white:
     "bg-white hover:bg-swhite/20 text-black border-none",
   gradient:
-    "bg-gradient-main hover:opacity-90 text-white border-none glow-sm hover:glow-md",
+    "bg-gradient-main hover:opacity-90 text-white border-none border-0 glow-sm hover:glow-md",
   outline:
     "bg-transparent hover:bg-surface-light text-foreground border-border hover:border-primary/50",
   ghost:

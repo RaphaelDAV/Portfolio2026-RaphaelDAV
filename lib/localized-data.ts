@@ -18,10 +18,12 @@ function getRuntimeLocale(): Locale {
   return defaultLocale;
 }
 
-export function createLocalizedValue<T>(values: Record<Locale, T>): T {
+export function createLocalizedValue<T extends object>(
+  values: Record<Locale, T>
+): T {
   return new Proxy({} as T, {
     get(_target, property, receiver) {
-      const activeValue = values[getRuntimeLocale()] as object;
+      const activeValue = values[getRuntimeLocale()];
       const result = Reflect.get(activeValue, property, receiver);
 
       if (typeof result === "function") {
@@ -31,14 +33,14 @@ export function createLocalizedValue<T>(values: Record<Locale, T>): T {
       return result;
     },
     has(_target, property) {
-      return Reflect.has(values[getRuntimeLocale()] as object, property);
+      return Reflect.has(values[getRuntimeLocale()], property);
     },
     ownKeys() {
-      return Reflect.ownKeys(values[getRuntimeLocale()] as object);
+      return Reflect.ownKeys(values[getRuntimeLocale()]);
     },
     getOwnPropertyDescriptor(_target, property) {
       return Object.getOwnPropertyDescriptor(
-        values[getRuntimeLocale()] as object,
+        values[getRuntimeLocale()],
         property
       );
     },

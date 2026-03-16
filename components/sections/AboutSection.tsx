@@ -10,8 +10,8 @@ import { AllEducationsModal } from "@/components/modals/AllEducationsModal";
 import { AllExperiencesModal } from "@/components/modals/AllExperiencesModal";
 import { GraduationCap, Briefcase, ArrowUpRight, FolderOpen, FolderCode } from "lucide-react";
 import { profile } from "@/data/profile";
-import { education } from "@/data/education";
-import { experiences } from "@/data/experiences";
+import { getFeaturedEducation } from "@/data/education";
+import { getFeaturedExperience } from "@/data/experiences";
 import { useI18n } from "@/components/providers/I18nProvider";
 
 export function AboutSection() {
@@ -19,9 +19,12 @@ export function AboutSection() {
   const [isExperienceModalOpen, setIsExperienceModalOpen] = useState(false);
   const { t } = useI18n();
 
-  // Récupérer le premier élément de chaque tableau pour l'aperçu
-  const firstEducation = education[0];
-  const firstExperience = experiences[0];
+  const featuredEducation = getFeaturedEducation();
+  const featuredExperience = getFeaturedExperience();
+
+  if (!featuredEducation || !featuredExperience) {
+    return null;
+  }
 
   return (
     <>
@@ -74,9 +77,9 @@ export function AboutSection() {
               <ClickableAboutCard
                 title={t("about.educationCardTitle")}
                 icon={<GraduationCap size={24} />}
-                mainText={firstEducation.diploma}
-                tags={[firstEducation.school]}
-                description={firstEducation.description}
+                mainText={featuredEducation.diploma}
+                tags={[featuredEducation.school]}
+                description={featuredEducation.description}
                 footerText={t("about.educationCardFooter")}
                 backgroundIcon={<GraduationCap size={250} />}
                 onClick={() => setIsEducationModalOpen(true)}
@@ -88,9 +91,9 @@ export function AboutSection() {
               <ClickableAboutCard
                 title={t("about.experiencesCardTitle")}
                 icon={<Briefcase size={24} />}
-                mainText={firstExperience.role}
-                tags={[firstExperience.company]}
-                description={firstExperience.description}
+                mainText={featuredExperience.role}
+                tags={[featuredExperience.company]}
+                description={featuredExperience.description}
                 footerText={t("about.experiencesCardFooter")}
                 backgroundIcon={<FolderCode size={250} />}
                 onClick={() => setIsExperienceModalOpen(true)}

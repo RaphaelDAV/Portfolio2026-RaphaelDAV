@@ -48,7 +48,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       experiencesCardFooter: "Cliquer pour voir toutes mes experiences",
     },
     characteristics: {
-      title: "Caracteristiques",
+      title: "Mes Soft Skills",
       description:
         "Des competences techniques et humaines construites au fil de mon parcours universitaire.",
     },
@@ -221,7 +221,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       experiencesCardFooter: "Click to view all my experiences",
     },
     characteristics: {
-      title: "Characteristics",
+      title: "Soft Skills",
       description:
         "Technical and human skills built throughout my academic journey.",
     },
