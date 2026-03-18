@@ -47,14 +47,14 @@ export const education: Education[] = [
   },
   {
     id: "bac-general",
-    diploma: "Baccalauréat Général",
+    diploma: "Baccalauréat Général — Mention Bien (15.63/20)",
     school: "Lycée",
     image: "/assets/education/lycee.png",
     location: "Île-de-France, France",
     startDate: "Septembre 2020",
     endDate: "Juin 2023",
     description:
-      "Baccalauréat général avec spécialités Mathématiques et Numérique & Sciences Informatiques (NSI). Première approche de la programmation avec Python et découverte des concepts fondamentaux de l'informatique.",
+      "Baccalauréat général avec spécialités Mathématiques, Sciences de l'Ingénieur (SI) et Mathématiques expertes. Première approche approfondie de la programmation et des concepts informatiques.",
     skills: [
       "Algorithmique et programmation Python",
       "Mathématiques avancées",
@@ -63,11 +63,12 @@ export const education: Education[] = [
     ],
     subjects: [
       "Mathématiques",
-      "Numérique et Sciences Informatiques",
+      "Sciences de l'Ingénieur (SI)",
+      "Mathématiques expertes",
       "Physique-Chimie",
       "Anglais",
     ],
     context:
-      "Spécialités scientifiques orientées vers l'informatique, avec un projet de fin d'année en NSI.",
+      "Spécialités scientifiques orientées vers l'informatique, avec un projet de fin d'année en NSI. Mention Bien obtenue avec une moyenne de 15.63/20.",
   },
 ];

@@ -47,14 +47,14 @@ export const education: Education[] = [
   },
   {
     id: "bac-general",
-    diploma: "General Baccalaureate",
+    diploma: "General Baccalaureate — With Honors (Bien) — 15.63/20",
     school: "High School",
     image: "/assets/education/lycee.png",
     location: "Ile-de-France, France",
     startDate: "September 2020",
     endDate: "June 2023",
     description:
-      "General baccalaureate with Mathematics and Computer Science (NSI) majors. First programming experience with Python and discovery of core computer science concepts.",
+      "General baccalaureate with specializations in Mathematics, Engineering Sciences (SI) and Advanced Mathematics. In-depth first experiences in programming and computer science concepts.",
     skills: [
       "Algorithms and Python programming",
       "Advanced mathematics",
@@ -63,11 +63,12 @@ export const education: Education[] = [
     ],
     subjects: [
       "Mathematics",
-      "Computer Science (NSI)",
+      "Engineering Sciences (SI)",
+      "Advanced Mathematics",
       "Physics and Chemistry",
       "English",
     ],
     context:
-      "Science-focused majors oriented toward computing, with an end-of-year NSI project.",
+      "Science-focused specializations oriented toward computing, with an end-of-year NSI project. Graduated with honors (Mention Bien) with an average of 15.63/20.",
   },
 ];
