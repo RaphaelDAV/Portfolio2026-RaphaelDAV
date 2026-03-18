@@ -4,10 +4,8 @@ import { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { FlipCard, type FlipCardData } from "@/components/cards/FlipCard";
-import { experiences } from "@/data/experiences";
+import { getExperiences } from "@/data/experiences";
 import { useI18n } from "@/components/providers/I18nProvider";
-
-const ordered = [...experiences];
 
 interface AllExperiencesModalProps {
   isOpen: boolean;
@@ -21,6 +19,8 @@ export function AllExperiencesModal({
   const { t } = useI18n();
   const [active, setActive] = useState(0);
   const [fits, setFits] = useState(true);
+  const { locale } = useI18n();
+  const ordered = [...getExperiences(locale)];
 
   const handleEscape = useCallback(
     (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); },

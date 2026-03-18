@@ -4,11 +4,11 @@ import { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { FlipCard, type FlipCardData } from "@/components/cards/FlipCard";
-import { education as allEducation } from "@/data/education";
+import { getEducation } from "@/data/education";
+import { Education } from "@/types/education";
 import { useI18n } from "@/components/providers/I18nProvider";
 
-const ordered = [...allEducation].reverse();
-type EduItem = (typeof ordered)[0];
+type EduItem = Education;
 
 interface AllEducationsModalProps {
   isOpen: boolean;
@@ -19,6 +19,9 @@ export function AllEducationsModal({ isOpen, onClose }: AllEducationsModalProps)
   const { t } = useI18n();
   const [active, setActive] = useState(0);
   const [fits, setFits] = useState(true);
+
+  const { locale } = useI18n();
+  const ordered = [...getEducation(locale)].reverse();
 
   const levelLabels = [
     t("modal.education.levelBac"),

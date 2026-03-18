@@ -6,6 +6,7 @@ import { RotateCcw } from "lucide-react";
 import Image from "next/image";
 import { Tag } from "@/components/ui/Tag";
 import { GlareHover } from "@/components/ui/GlareHover";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 export interface FlipCardData {
     id: string;
@@ -39,18 +40,20 @@ export function FlipCard({
     data,
     index,
     fits,
-    frontClickHint = "Cliquer pour voir plus",
+    frontClickHint,
     backSections,
 }: FlipCardProps) {
     const [flipped, setFlipped] = useState(false);
 
+    const { t } = useI18n();
+
     // Par défaut, on utilise skills et subjects si fournis
     const defaultBackSections = [
         ...(data.skills && data.skills.length > 0
-            ? [{ title: "Compétences", items: data.skills.slice(0, 5), variant: "default" as const }]
+            ? [{ title: t("ui.skillsTitle"), items: data.skills.slice(0, 5), variant: "default" as const }]
             : []),
         ...(data.subjects && data.subjects.length > 0
-            ? [{ title: "Matières", items: data.subjects.slice(0, 5), variant: "primary" as const }]
+            ? [{ title: t("ui.subjectsTitle"), items: data.subjects.slice(0, 5), variant: "primary" as const }]
             : []),
     ];
 
@@ -98,7 +101,7 @@ export function FlipCard({
                             )}
                             {data.isUpcoming && (
                                 <span className="absolute top-3 right-3 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
-                                    À venir
+                                    {t("ui.upcoming")}
                                 </span>
                             )}
                             <div className="absolute bottom-3 left-3">
@@ -114,7 +117,7 @@ export function FlipCard({
                             <h3 className="text-base font-bold text-white leading-snug">{data.title}</h3>
                             <p className="text-xs text-white/40 leading-relaxed line-clamp-3">{data.description}</p>
                             <div className="pt-1 flex items-center justify-center gap-1.5 text-white/25 text-[10px] font-medium tracking-wide">
-                                {frontClickHint}
+                                {frontClickHint ?? t("ui.clickToReveal")}
                             </div>
                         </div>
                     </div>
@@ -133,7 +136,7 @@ export function FlipCard({
                             </div>
                             <div className="flex-shrink-0 flex items-center gap-1 mt-1 text-white/30 text-[10px]">
                                 <RotateCcw size={10} />
-                                retourner
+                                {t("ui.flipBack")}
                             </div>
                         </div>
                         <p className="text-xs text-white/50 leading-relaxed">{data.description}</p>

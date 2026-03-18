@@ -7,7 +7,7 @@ export interface Project {
   year: number;
   category: string;
   /** "large" = double-width card, "small" = single-width card */
-  size: "large" | "small";
+  size?: "large" | "small";
   technologies: string[];
   coverImage: string;
   icon?: string;

@@ -17,10 +17,10 @@ import { useI18n } from "@/components/providers/I18nProvider";
 export function AboutSection() {
   const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
   const [isExperienceModalOpen, setIsExperienceModalOpen] = useState(false);
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
-  const featuredEducation = getFeaturedEducation();
-  const featuredExperience = getFeaturedExperience();
+  const featuredEducation = getFeaturedEducation(locale);
+  const featuredExperience = getFeaturedExperience(locale);
 
   if (!featuredEducation || !featuredExperience) {
     return null;

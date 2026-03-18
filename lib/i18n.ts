@@ -180,6 +180,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       previousProject: "Projet precedent",
       nextProject: "Projet suivant",
     },
+    ui: {
+      clickToReveal: "Cliquer pour voir plus",
+      upcoming: "À venir",
+      flipBack: "retourner",
+      skillsTitle: "Compétences",
+      subjectsTitle: "Matières",
+    },
   },
   en: {
     navbar: {
@@ -352,6 +359,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       goToImageAriaPrefix: "Go to image",
       previousProject: "Previous project",
       nextProject: "Next project",
+    },
+    ui: {
+      clickToReveal: "Click to reveal more",
+      upcoming: "Upcoming",
+      flipBack: "flip back",
+      skillsTitle: "Skills",
+      subjectsTitle: "Subjects",
     },
   },
 };
