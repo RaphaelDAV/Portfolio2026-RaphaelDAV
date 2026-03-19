@@ -11,7 +11,7 @@ export const profile = {
     "Étudiant en BUT Informatique, passionné par le développement web et logiciel. Toujours motivé pour apprendre et créer.",
   searchingFor:
     "Actuellement à la recherche d'un stage de 3 mois à partir d'avril 2026.",
-  cvUrl: "/assets/documents/CV DAVIOT Raphael.pdf",
+  cvUrl: "assets/documents/CV Raphael DAVIOT - Alternance.pdf",
   qualities: [
     "Ambitieux",
     "Organisé",

@@ -47,14 +47,14 @@ export const education: Education[] = [
   },
   {
     id: "bac-general",
-    diploma: "General Baccalaureate — With Honors (Bien) — 15.63/20",
+    diploma: "General Baccalaureate",
     school: "High School",
     image: "/assets/education/lycee.png",
     location: "Ile-de-France, France",
     startDate: "September 2020",
     endDate: "June 2023",
     description:
-      "General baccalaureate with specializations in Mathematics, Engineering Sciences (SI) and Advanced Mathematics. In-depth first experiences in programming and computer science concepts.",
+      "General baccalaureate  — With Honors (Bien) — 15.63/20 with specializations in Mathematics, Engineering Sciences (SI) and Advanced Mathematics. In-depth first experiences in programming and computer science concepts.",
     skills: [
       "Algorithms and Python programming",
       "Advanced mathematics",

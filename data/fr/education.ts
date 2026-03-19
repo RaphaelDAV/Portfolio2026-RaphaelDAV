@@ -47,14 +47,14 @@ export const education: Education[] = [
   },
   {
     id: "bac-general",
-    diploma: "Baccalauréat Général — Mention Bien (15.63/20)",
+    diploma: "Baccalauréat Général ",
     school: "Lycée",
     image: "/assets/education/lycee.png",
     location: "Île-de-France, France",
     startDate: "Septembre 2020",
     endDate: "Juin 2023",
     description:
-      "Baccalauréat général avec spécialités Mathématiques, Sciences de l'Ingénieur (SI) et Mathématiques expertes. Première approche approfondie de la programmation et des concepts informatiques.",
+      "Baccalauréat général — Mention Bien (15.63/20) avec spécialités Mathématiques, Sciences de l'Ingénieur (SI) et Mathématiques expertes. Première approche approfondie de la programmation et des concepts informatiques.",
     skills: [
       "Algorithmique et programmation Python",
       "Mathématiques avancées",

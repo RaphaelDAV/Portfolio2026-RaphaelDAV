@@ -11,7 +11,7 @@ export const profile = {
     "Computer Science B.U.T student passionate about web and software development. Always motivated to learn and build.",
   searchingFor:
     "Currently looking for a 3-month internship starting in April 2026.",
-  cvUrl: "/assets/documents/CV DAVIOT Raphael.pdf",
+  cvUrl: "assets/documents/CV Raphael DAVIOT - Alternance.pdf",
   qualities: [
     "Ambitious",
     "Organized",
